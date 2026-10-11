@@ -15,6 +15,7 @@ import {
 import { ProjectDrawerSkeleton } from "@/components/skeletons"
 import { useSimulatedLoading } from "@/hooks/use-simulated-loading"
 import { useProjectDrawer } from "@/stores/project-drawer"
+import { getLenis } from "@/hooks/use-lenis"
 
 // Stagger the hero block in as the drawer settles.
 const heroContainer: Variants = {
@@ -34,10 +35,19 @@ export const ProjectDrawer = () => {
   // Restarts on open and whenever the project changes.
   const loading = useSimulatedLoading(`${isOpen}-${project?.id ?? ""}`)
 
-  // Drives the page's scale-back effect (see globals.css).
+  // Drives the page's scale-back effect and pauses Lenis on page
   useEffect(() => {
-    if (isOpen) document.body.dataset.drawerOpen = "true"
-    else delete document.body.dataset.drawerOpen
+    const lenis = getLenis()
+    if (isOpen) {
+      document.body.dataset.drawerOpen = "true"
+      lenis?.stop()
+    } else {
+      delete document.body.dataset.drawerOpen
+      lenis?.start()
+    }
+    return () => {
+      lenis?.start()
+    }
   }, [isOpen])
 
   const goToContact = () => {
@@ -60,7 +70,10 @@ export const ProjectDrawer = () => {
       }}
       showSwipeHandle
     >
-      <DrawerContent className="[--drawer-height:calc(100dvh-6rem)]">
+      <DrawerContent
+        data-lenis-prevent
+        className="[--drawer-height:calc(100dvh-6rem)]"
+      >
         {project && (
           <>
             <DrawerClose
@@ -76,6 +89,7 @@ export const ProjectDrawer = () => {
 
             <div
               ref={scrollRef}
+              data-lenis-prevent
               className="flex-1 overflow-y-auto overscroll-contain"
             >
               {loading ? (

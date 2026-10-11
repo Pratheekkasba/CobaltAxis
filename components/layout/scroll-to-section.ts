@@ -1,9 +1,8 @@
 import type { MouseEvent } from "react"
+import { scrollTo } from "@/hooks/use-lenis"
 
-// Reliable in-page anchor navigation. Next's <Link> is flaky with same-page
-// hash scrolling, so we handle it ourselves: scroll to the target element
-// (respecting its scroll-margin and the user's motion preference) and sync the
-// URL hash without a full navigation.
+// Reliable in-page anchor navigation using Lenis smooth scroll when active,
+// with graceful fallback for reduced motion.
 export const scrollToSection = (e: MouseEvent, href: string) => {
   if (!href.startsWith("#")) return
   const el = document.getElementById(href.slice(1))
@@ -11,6 +10,12 @@ export const scrollToSection = (e: MouseEvent, href: string) => {
 
   e.preventDefault()
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" })
+
+  if (!reduce) {
+    scrollTo(el, { offset: -90, duration: 1.2 })
+  } else {
+    el.scrollIntoView({ behavior: "auto" })
+  }
+
   window.history.replaceState(null, "", href)
 }

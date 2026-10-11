@@ -114,6 +114,38 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+    --animate-marquee: marquee var(--duration, 30s) linear infinite;
+    --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
+    --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @layer base {
@@ -127,12 +159,32 @@
     cursor: pointer;
     }
   html {
-    @apply scroll-smooth font-mono;
-    }
+    font-size: 90%;
+    @apply font-mono;
+    scroll-behavior: auto;
+  }
   /* Anchor jumps land below the fixed nav instead of behind it. */
   [id] {
     scroll-margin-top: 7rem;
-    }
+  }
+}
+
+/* Lenis Smooth Scroll rules */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 /* Page scales back behind the project drawer (nav sits outside this element,
@@ -167,14 +219,12 @@ body[data-drawer-open] [data-scale-container] {
    Gated on `no-preference` to mirror the hero's gsap.matchMedia gate: those
    users' timeline never runs, so they must never get the hidden state. The
    no-JS escape hatch is the <noscript> block in app/layout.tsx. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-top,
-  .hero-sub,
-  .hero-scroll,
-  .hero-stat,
-  .hero-marquee,
-  .hero-mask,
-  .hero-line {
-    opacity: 0;
-  }
+.hero-top,
+.hero-sub,
+.hero-scroll,
+.hero-stat,
+.hero-marquee,
+.hero-mask,
+.hero-line {
+  opacity: 0;
 }

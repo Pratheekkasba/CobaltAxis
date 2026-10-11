@@ -5,11 +5,15 @@ import { motion } from "framer-motion"
 import gsap from "gsap"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 import { scrollToSection } from "@/components/layout/scroll-to-section"
+import { CobaltAxisLogo } from "@/components/ui/logo"
 
 const socials = [
-  { label: "Instagram", href: "#" },
-  { label: "X", href: "#" },
-  { label: "LinkedIn", href: "#" },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/cobaltaxis.in?dlrf=d3AxOXF2bWI0Ymlh",
+  },
+  { label: "X", href: "https://x.com/CobaltAxis" },
+  { label: "LinkedIn", href: "https://linkedin.com/company/cobaltaxis" },
 ]
 
 export const Footer = () => {
@@ -56,13 +60,8 @@ export const Footer = () => {
 
   return (
     <footer
-      id="contact"
-      className="mt-40 border-t border-border pt-16 md:pt-24"
+      className="mt-32 border-t border-border pt-16 md:pt-20"
     >
-      <span className="inline-flex items-center gap-2 text-sm tracking-widest text-muted-foreground uppercase">
-        <span className="size-2 rounded-full bg-primary motion-safe:animate-pulse" />
-        Available for new projects
-      </span>
       <div className="md:flex md:items-center md:justify-between">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -76,14 +75,16 @@ export const Footer = () => {
           <span className="text-primary">Let&apos;s talk.</span>
         </motion.h2>
 
-        {/* Magnetic email button */}
+        {/* Magnetic WhatsApp button */}
         <div ref={wrapRef} className="mt-12 flex w-fit shrink-0 p-6">
           <a
             ref={magnetRef}
-            href="mailto:hello@agency.com"
+            href="https://api.whatsapp.com/send/?phone=919347216338&text=Hi+CobaltAxis%21+I%27m+interested+in+your+services.&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noreferrer noopener"
             className="group inline-flex items-center gap-3 rounded-full border border-border px-8 py-5 text-xl font-medium transition-colors duration-300 hover:bg-foreground hover:text-background md:text-3xl"
           >
-            hello@agency.com
+            Chat on WhatsApp
             <ArrowUpRight className="size-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:size-8" />
           </a>
         </div>
@@ -91,20 +92,25 @@ export const Footer = () => {
 
       {/* Footer bar */}
       <div className="mt-24 flex flex-col gap-6 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-        <div className="flex gap-6">
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              className="tracking-widest uppercase transition-colors hover:text-foreground"
-            >
-              {social.label}
-            </a>
-          ))}
+        <div className="flex items-center gap-6">
+          <CobaltAxisLogo size="sm" />
+          <div className="flex gap-6">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="tracking-widest uppercase transition-colors hover:text-foreground"
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
         </div>
 
         <span className="order-last md:order-0">
-          © {year} Agency. All rights reserved.
+          © {year} Cobalt Axis. All rights reserved.
         </span>
 
         <a

@@ -16,7 +16,7 @@ describe("Projects2", () => {
 
     expect(screen.getByText("(Selected work)")).toBeInTheDocument()
     expect(
-      screen.getByRole("heading", { name: "Projects II" })
+      screen.getByRole("heading", { name: "Projects" })
     ).toBeInTheDocument()
   })
 

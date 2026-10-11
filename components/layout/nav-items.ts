@@ -1,16 +1,16 @@
-// Shared navigation targets. Each `href` points at a section `id` rendered on
-// the home page so both the web and mobile navs stay in sync.
+// Shared navigation targets for Cobalt Axis
 export type NavItem = {
   label: string
   href: string
 }
 
 export const navItems: NavItem[] = [
+  { label: "Idea", href: "#idea" },
   { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
   { label: "Projects", href: "#projects" },
-  { label: "Projects II", href: "#projects-2" },
-  { label: "Case Study", href: "#case-study" },
   { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ]
 
 // Section ids the scroll-spy watches (stable module-level reference).

@@ -9,6 +9,7 @@ import { useActiveSection } from "@/hooks/use-active-section"
 import { navItems, sectionIds } from "./nav-items"
 import { scrollToSection } from "./scroll-to-section"
 import { ThemeToggle } from "./theme-toggle"
+import { CobaltAxisLogo } from "@/components/ui/logo"
 
 // Mobile navigation. Fixed to the top and morphs into a floating pill on
 // scroll (mirroring WebNav); a hamburger toggles a full-screen overlay that
@@ -43,9 +44,9 @@ export const MobileNav = () => {
               scrollToSection(e, "#top")
               close()
             }}
-            className="text-xl font-bold tracking-tighter uppercase"
+            className="flex items-center"
           >
-            Agency.
+            <CobaltAxisLogo size="sm" />
           </Link>
 
           <div className="flex items-center gap-2">
@@ -73,9 +74,7 @@ export const MobileNav = () => {
             className="fixed inset-0 z-50 flex flex-col bg-background px-6 py-12 text-foreground md:hidden"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xl font-bold tracking-tighter uppercase">
-                Agency.
-              </span>
+              <CobaltAxisLogo size="sm" />
               <button
                 type="button"
                 aria-label="Close menu"
@@ -109,16 +108,15 @@ export const MobileNav = () => {
                   </Link>
                 )
               })}
-              <Link
-                href="#contact"
-                onClick={(e) => {
-                  scrollToSection(e, "#contact")
-                  close()
-                }}
+              <a
+                href="https://api.whatsapp.com/send/?phone=919347216338&text=Hi+CobaltAxis%21+I%27m+interested+in+your+services.&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={close}
                 className="mt-8 w-fit rounded-full border border-border px-5 py-3 text-sm font-medium tracking-widest uppercase transition-colors hover:bg-foreground hover:text-background"
               >
                 Let&apos;s Talk
-              </Link>
+              </a>
             </nav>
           </motion.div>
         )}

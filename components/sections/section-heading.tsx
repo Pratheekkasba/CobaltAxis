@@ -11,7 +11,7 @@ export const SectionHeading = ({ label, title }: SectionHeadingProps) => {
       <span className="text-sm tracking-widest text-muted-foreground uppercase">
         ({label})
       </span>
-      <h2 className="text-4xl font-black tracking-tighter uppercase md:text-6xl">
+      <h2 className="text-4xl font-black tracking-tighter uppercase md:text-6xl font-[family-name:var(--font-heading)]">
         {title}
       </h2>
     </div>

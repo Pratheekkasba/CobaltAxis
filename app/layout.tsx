@@ -25,9 +25,9 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : "http://localhost:3000"
 
-const title = "Modern Agency — Digital Product Studio"
+const title = "Cobalt Axis — Digital Experience Studio"
 const description =
-  "We partner with ambitious brands to design and build websites, products, and experiences that move people — and move numbers."
+  "Cobalt Axis partners with ambitious brands to engineer digital experiences, products, and interfaces with cutting-edge design and motion."
 
 export const metadata: Metadata = {
   // Required for `app/opengraph-image.png` (and twitter:image) to resolve to
@@ -35,20 +35,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: title,
-    template: "%s | Modern Agency",
+    template: "%s | Cobalt Axis",
   },
   description,
   keywords: [
+    "cobalt axis",
     "digital agency",
-    "product design",
+    "creative engineering",
     "web development",
-    "branding",
     "motion design",
+    "interactive studio",
   ],
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Modern Agency",
+    siteName: "Cobalt Axis",
     title,
     description,
   },

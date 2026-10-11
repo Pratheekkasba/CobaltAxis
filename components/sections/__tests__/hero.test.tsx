@@ -17,10 +17,9 @@ describe("Hero", () => {
     expect(heading).toHaveTextContent(/experiences/i)
   })
 
-  it("renders the availability badge and scroll cue", () => {
+  it("renders the scroll cue", () => {
     renderWithProviders(<Hero />)
 
-    expect(screen.getByText(/available for new projects/i)).toBeInTheDocument()
     expect(
       screen.getByRole("link", { name: /scroll to explore/i })
     ).toHaveAttribute("href", "#services")
@@ -31,6 +30,6 @@ describe("Hero", () => {
 
     expect(screen.getByText("Projects shipped")).toBeInTheDocument()
     expect(screen.getByText("Countries reached")).toBeInTheDocument()
-    expect(screen.getByText("Industry awards")).toBeInTheDocument()
+    expect(screen.getByText("Client satisfaction")).toBeInTheDocument()
   })
 })

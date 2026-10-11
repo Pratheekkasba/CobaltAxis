@@ -1,11 +1,12 @@
 import { WebNav } from "@/components/layout/web-nav"
 import { MobileNav } from "@/components/layout/mobile-nav"
 import { Hero } from "@/components/sections/hero"
+import { BigIdea } from "@/components/sections/big-idea"
 import { Services } from "@/components/sections/services"
-import { Projects1 } from "@/components/sections/projects1"
+import { Process } from "@/components/sections/process"
 import { Projects2 } from "@/components/sections/projects2"
-import { CaseStudy } from "@/components/sections/case-study"
 import { About } from "@/components/sections/about"
+import { ContactCTA } from "@/components/sections/contact-cta"
 import { Footer } from "@/components/sections/footer"
 
 const Home = () => {
@@ -17,14 +18,30 @@ const Home = () => {
       <main
         id="top"
         data-scale-container
-        className="mx-auto min-h-screen max-w-screen-2xl px-6 pt-28 pb-12 md:px-24 md:pt-32 md:pb-24"
+        className="mx-auto min-h-screen max-w-[1380px] px-6 pt-24 pb-12 md:px-12 md:pt-28 md:pb-20"
       >
+        {/* Section 01: Hero */}
         <Hero />
+
+        {/* Section 02: The Big Idea */}
+        <BigIdea />
+
+        {/* Section 03: What We Do (Serpentine orbital journey) */}
         <Services />
-        <Projects1 />
+
+        {/* Section 04: How We Think (Engineering methodology) */}
+        <Process />
+
+        {/* Section 05: Projects (Interactive list & preview showcase) */}
         <Projects2 />
-        <CaseStudy />
+
+        {/* Section 06: Who We Are (Studio manifesto & values) */}
         <About />
+
+        {/* Section 07: Start a Conversation */}
+        <ContactCTA />
+
+        {/* Section 08: Footer */}
         <Footer />
       </main>
     </>

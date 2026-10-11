@@ -25,10 +25,17 @@ const values = [
   },
 ]
 
-const facts = [
-  { value: 2020, label: "Founded", count: false },
-  { value: 14, label: "People", count: true },
-  { value: 3, label: "Continents", count: true },
+type Fact = {
+  value: number
+  label: string
+  count: boolean
+  suffix?: string
+}
+
+const facts: Fact[] = [
+  { value: 2025, label: "Founded", count: false },
+  { value: 8, label: "People", count: true },
+  { value: 100, label: "In-House Team", count: true, suffix: "%" },
 ]
 
 // Splits a chunk of the manifesto into per-word spans the scroll timeline can
@@ -166,6 +173,7 @@ export const About = () => {
           >
             <p className="text-4xl font-black tracking-tighter md:text-6xl">
               <StatNumber value={fact.value} count={fact.count} />
+              {fact.suffix && <span className="text-primary">{fact.suffix}</span>}
             </p>
             <p className="mt-2 text-xs tracking-widest text-muted-foreground uppercase">
               {fact.label}

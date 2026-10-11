@@ -4,10 +4,12 @@ import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
+import { usePreloaderStore } from "@/stores/preloader"
+
 const stats = [
-  { value: 150, suffix: "+", label: "Projects shipped" },
-  { value: 27, suffix: "", label: "Countries reached" },
-  { value: 15, suffix: "", label: "Industry awards" },
+  { value: 25, suffix: "+", label: "Projects shipped" },
+  { value: 6, suffix: "", label: "Countries reached" },
+  { value: 99, suffix: "%", label: "Client satisfaction" },
 ]
 
 const services = [
@@ -27,24 +29,17 @@ export const Hero = () => {
   const outlineRef = useRef<HTMLSpanElement>(null)
   const starRef = useRef<HTMLSpanElement>(null)
   const marqueeRef = useRef<HTMLDivElement>(null)
+  const isLoaded = usePreloaderStore((s) => s.isLoaded)
 
   useEffect(() => {
+    if (!isLoaded) return
     gsap.registerPlugin(ScrollTrigger)
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia()
-
-      // Only animate for users who haven't asked to reduce motion.
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // globals.css pre-hides the hero (opacity:0) so the prerendered HTML
-        // can't flash the final layout before this runs. Take ownership: park
-        // the transforms while things are still hidden, then clear the CSS hide
-        // by writing opacity inline. CSS only ever sets opacity — every
-        // transform is GSAP's alone, so an interrupted tween can leave
-        // something invisible but never mispositioned.
-        gsap.set(".hero-line-inner", { yPercent: 115 })
-        gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center" })
-        gsap.set([".hero-mask", lineRef.current], { opacity: 1 })
+      // Park transforms while still hidden, then clear CSS hide by setting opacity
+      gsap.set(".hero-line-inner", { yPercent: 115 })
+      gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center" })
+      gsap.set([".hero-mask", lineRef.current], { opacity: 1 })
 
         // Intro timeline: masked line reveals + a drawn divider.
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
@@ -138,6 +133,7 @@ export const Hero = () => {
         })
 
         // Mouse parallax on the outlined word (fine pointers only).
+        const mm = gsap.matchMedia()
         mm.add("(pointer: fine)", () => {
           const xTo = gsap.quickTo(outlineRef.current, "x", {
             duration: 0.7,
@@ -158,11 +154,10 @@ export const Hero = () => {
           window.addEventListener("mousemove", onMove)
           return () => window.removeEventListener("mousemove", onMove)
         })
-      })
     }, heroRef)
 
     return () => ctx.revert() // reverts tweens, ScrollTriggers, and listeners
-  }, [])
+  }, [isLoaded])
 
   return (
     <section ref={heroRef} className="relative mb-32">
@@ -175,20 +170,16 @@ export const Hero = () => {
         ✳
       </span>
 
-      {/* Top row: availability + studio label */}
-      <div className="hero-top mb-12 flex items-center justify-between">
-        <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs tracking-widest uppercase">
-          <span className="size-2 rounded-full bg-primary motion-safe:animate-pulse" />
-          Available for new projects
-        </span>
-        <span className="hidden text-xs tracking-widest text-muted-foreground uppercase sm:inline">
-          Digital Product Studio — Est. 2020
+      {/* Top row: studio label */}
+      <div className="hero-top mb-12 flex items-center justify-start">
+        <span className="text-xs tracking-widest text-muted-foreground uppercase font-mono">
+          Cobalt Axis — Digital Experience Studio
         </span>
       </div>
 
       <h1
         ref={headingRef}
-        className="text-6xl leading-[0.95] font-black tracking-tighter md:text-8xl lg:text-9xl"
+        className="text-5xl sm:text-7xl md:text-8xl lg:text-[6.8rem] leading-[0.93] font-black tracking-tighter"
       >
         <span className="hero-mask block overflow-hidden pb-[0.1em]">
           <span className="hero-line-inner block">WE BUILD</span>

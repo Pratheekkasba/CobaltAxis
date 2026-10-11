@@ -32,7 +32,7 @@ describe("About", () => {
 
     expect(screen.getByText("Founded")).toBeInTheDocument()
     expect(screen.getByText("People")).toBeInTheDocument()
-    expect(screen.getByText("Continents")).toBeInTheDocument()
+    expect(screen.getByText("In-House Team")).toBeInTheDocument()
 
     ;["Craft", "Candor", "Momentum", "Ownership"].forEach((value) => {
       expect(screen.getByText(value)).toBeInTheDocument()
