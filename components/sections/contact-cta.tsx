@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, type ReactNode } from "react"
-import { ArrowUpRight, MessageCircle } from "lucide-react"
+import { ArrowUpRight, MessageCircle, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionHeading } from "./section-heading"
 
@@ -119,8 +119,8 @@ export const ContactCTA = () => {
             </p>
           </div>
 
-          {/* Action Box: Direct WhatsApp CTA */}
-          <div className="rounded-3xl border border-border/80 bg-card/60 p-8 sm:p-10 shadow-2xl backdrop-blur-md">
+          {/* Action Box: Direct WhatsApp CTA + Email */}
+          <div className="rounded-3xl border border-border/80 bg-card/60 p-8 sm:p-10 shadow-2xl backdrop-blur-md space-y-5">
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -134,6 +134,18 @@ export const ContactCTA = () => {
               <ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 pointer-events-none" />
             </a>
+
+            {/* Direct Email link */}
+            <div className="pt-2 flex items-center justify-between text-xs sm:text-sm font-mono text-muted-foreground border-t border-border/40">
+              <span>Direct inquiries:</span>
+              <a
+                href="mailto:office@cobaltaxis.in"
+                className="text-foreground hover:text-[#0052FF] transition-colors font-medium flex items-center gap-2"
+              >
+                <Mail className="size-4" />
+                <span>office@cobaltaxis.in</span>
+              </a>
+            </div>
           </div>
         </div>
 

@@ -94,7 +94,13 @@ export const Footer = () => {
       <div className="mt-24 flex flex-col gap-6 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-6">
           <CobaltAxisLogo size="sm" />
-          <div className="flex gap-6">
+          <div className="flex flex-wrap items-center gap-6">
+            <a
+              href="mailto:office@cobaltaxis.in"
+              className="tracking-widest uppercase transition-colors hover:text-foreground text-[#0052FF] font-medium"
+            >
+              office@cobaltaxis.in
+            </a>
             {socials.map((social) => (
               <a
                 key={social.label}

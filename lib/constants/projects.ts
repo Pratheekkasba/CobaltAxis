@@ -42,6 +42,40 @@ const baseSections = (
 
 export const projects: Project[] = [
   {
+    id: "clns",
+    title: "CLNS",
+    category: "LegalTech",
+    year: 2026,
+    accent: "#0052FF",
+    tags: ["LegalTech", "Ecosystem", "Platform Design"],
+    image: "/images/projects/clns.png",
+    excerpt:
+      "Centralised Legal Network Solutions — connecting clients, advocates, law students, and businesses in a unified legal ecosystem.",
+    sections: [
+      {
+        label: "Overview",
+        body: "CLNS is a legal-tech ecosystem connecting clients, advocates, law students, and businesses through accessible legal services, professional networking, and practical learning opportunities.",
+      },
+      {
+        label: "Challenge",
+        body: "Legal services and professional opportunities remain fragmented, making it difficult for people to find the right legal support and for students to gain practical exposure.",
+      },
+      {
+        label: "Approach",
+        body: "We shaped a unified digital experience around legal-service discovery, advocate onboarding, student opportunities, mentorship, and streamlined legal workflows — bringing the legal ecosystem closer together.",
+      },
+      {
+        label: "Outcome",
+        body: "A vision for a more connected, accessible, and modern legal ecosystem, designed to simplify legal journeys and create meaningful opportunities for both clients and legal professionals.",
+      },
+    ],
+    results: [
+      { value: "4", label: "Core user groups" },
+      { value: "3", label: "Digital platforms envisioned" },
+      { value: "1", label: "Connected legal ecosystem" },
+    ],
+  },
+  {
     id: "orbit",
     title: "Orbit Commerce",
     category: "E-Commerce",
@@ -105,26 +139,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: "monogram",
-    title: "Monogram",
-    category: "Editorial",
-    year: 2023,
-    accent: "#8b5cf6",
-    tags: ["Editorial", "Web", "Motion"],
-    image: img("monogram-mag"),
-    excerpt: "An online magazine where typography does the heavy lifting.",
-    sections: baseSections(
-      "Monogram",
-      "Editorial",
-      "Monogram is a culture publication for designers. We built a reading experience that treats type as the interface — fluid, fast, and unmistakably editorial."
-    ),
-    results: [
-      { value: "+90%", label: "Read time" },
-      { value: "250k", label: "Monthly reads" },
-      { value: "7 wks", label: "To launch" },
-    ],
-  },
-  {
     id: "flux",
     title: "Flux Labs",
     category: "Web Platform",
@@ -143,111 +157,6 @@ export const projects: Project[] = [
       { value: "+140%", label: "Signups" },
       { value: "1.2s", label: "Largest paint" },
       { value: "9 wks", label: "To launch" },
-    ],
-  },
-  {
-    id: "atlas",
-    title: "Atlas Bank",
-    category: "Campaign",
-    year: 2025,
-    accent: "#3b82f6",
-    tags: ["Campaign", "Art Direction", "Web"],
-    image: img("atlas-bank"),
-    excerpt:
-      "A launch campaign that repositioned a legacy bank for a new generation.",
-    sections: baseSections(
-      "Atlas Bank",
-      "Campaign",
-      "Atlas needed to feel modern without losing decades of trust. We built a campaign and microsite that balanced heritage with momentum — and gave the internal team a system to keep it going."
-    ),
-    results: [
-      { value: "+230%", label: "Engagement" },
-      { value: "18M", label: "Impressions" },
-      { value: "5 wks", label: "To live" },
-    ],
-  },
-  {
-    id: "sable",
-    title: "Sable & Co",
-    category: "Branding",
-    year: 2024,
-    accent: "#f59e0b",
-    tags: ["Identity", "Packaging", "Web"],
-    image: img("sable-co"),
-    excerpt:
-      "A heritage identity rebuilt for a coffee roaster expanding beyond its first city.",
-    sections: baseSections(
-      "Sable & Co",
-      "Branding",
-      "Sable roasts small-batch coffee with obsessive care. We gave them an identity with the same restraint — a wordmark, a packaging system, and a shop that scales from one café to twenty."
-    ),
-    results: [
-      { value: "+85%", label: "Retail sales" },
-      { value: "20", label: "New locations" },
-      { value: "6 wks", label: "To rollout" },
-    ],
-  },
-  {
-    id: "northwind",
-    title: "Northwind",
-    category: "Web Platform",
-    year: 2025,
-    accent: "#06b6d4",
-    tags: ["Web", "Design System", "Development"],
-    image: img("northwind-platform"),
-    excerpt:
-      "A logistics platform that turns dense operational data into something people can read at a glance.",
-    sections: baseSections(
-      "Northwind",
-      "Web Platform",
-      "Northwind moves freight across three continents. We rebuilt their operations dashboard around clarity — dense data, calm interface, and a system their team extends without us."
-    ),
-    results: [
-      { value: "-40%", label: "Support tickets" },
-      { value: "1.1s", label: "Largest paint" },
-      { value: "11 wks", label: "To launch" },
-    ],
-  },
-  {
-    id: "lumen",
-    title: "Lumen",
-    category: "Product Design",
-    year: 2024,
-    accent: "#8b5cf6",
-    tags: ["Product", "UX", "Motion"],
-    image: img("lumen-product"),
-    excerpt:
-      "A focus app that earns its place on the home screen by getting out of the way.",
-    sections: baseSections(
-      "Lumen",
-      "Product Design",
-      "Lumen helps people protect deep work. We designed an interface that disappears while you're in it — quiet defaults, purposeful motion, and zero nagging."
-    ),
-    results: [
-      { value: "+160%", label: "Day-7 retention" },
-      { value: "4.9★", label: "App rating" },
-      { value: "9 wks", label: "To beta" },
-    ],
-  },
-  {
-    id: "cadence",
-    title: "Cadence",
-    category: "Motion Design",
-    year: 2023,
-    accent: "#ec4899",
-    tags: ["Motion", "Art Direction", "Campaign"],
-    image: img("cadence-motion"),
-    excerpt:
-      "A launch film and motion system that gave a music startup its voice.",
-    sections: baseSections(
-      "Cadence",
-      "Motion Design",
-      "Cadence needed to feel like the music it serves. We built a motion language — a launch film, in-product transitions, and social cutdowns — that all move to the same beat."
-    ),
-    results: [
-      { value: "+310%", label: "Signups" },
-      { value: "9M", label: "Views" },
-      { value: "7 wks", label: "To launch" },
     ],
   },
 ]
