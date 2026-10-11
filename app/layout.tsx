@@ -25,7 +25,7 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : "http://localhost:3000"
 
-const title = "Cobalt Axis — Digital Experience Studio"
+const title = "Cobalt Axis"
 const description =
   "Cobalt Axis partners with ambitious brands to engineer digital experiences, products, and interfaces with cutting-edge design and motion."
 
@@ -36,6 +36,13 @@ export const metadata: Metadata = {
   title: {
     default: title,
     template: "%s | Cobalt Axis",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
   },
   description,
   keywords: [
