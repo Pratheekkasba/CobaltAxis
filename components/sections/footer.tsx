@@ -75,16 +75,14 @@ export const Footer = () => {
           <span className="text-primary">Let&apos;s talk.</span>
         </motion.h2>
 
-        {/* Magnetic WhatsApp button */}
+        {/* Magnetic Email CTA */}
         <div ref={wrapRef} className="mt-12 flex w-fit shrink-0 p-6">
           <a
             ref={magnetRef}
-            href="https://api.whatsapp.com/send/?phone=919347216338&text=Hi+CobaltAxis%21+I%27m+interested+in+your+services.&type=phone_number&app_absent=0"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="group inline-flex items-center gap-3 rounded-full border border-border px-8 py-5 text-xl font-medium transition-colors duration-300 hover:bg-foreground hover:text-background md:text-3xl"
+            href="mailto:office@cobaltaxis.in"
+            className="group inline-flex items-center gap-3 rounded-full border border-border px-8 py-5 text-xl font-medium transition-colors duration-300 hover:bg-foreground hover:text-background md:text-3xl lowercase font-mono"
           >
-            Chat on WhatsApp
+            office@cobaltaxis.in
             <ArrowUpRight className="size-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:size-8" />
           </a>
         </div>
@@ -94,13 +92,7 @@ export const Footer = () => {
       <div className="mt-24 flex flex-col gap-6 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-6">
           <CobaltAxisLogo size="sm" />
-          <div className="flex flex-wrap items-center gap-6">
-            <a
-              href="mailto:office@cobaltaxis.in"
-              className="tracking-widest uppercase transition-colors hover:text-foreground text-[#0052FF] font-medium"
-            >
-              office@cobaltaxis.in
-            </a>
+          <div className="flex gap-6">
             {socials.map((social) => (
               <a
                 key={social.label}
