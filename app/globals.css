@@ -1326,3 +1326,236 @@ body[data-drawer-open] [data-scale-container] {
     display: none;
   }
 }
+
+/* ============ Intelligent engine (services page) ============ */
+
+/* Theme-adaptive palette for the hand-coded SVG engine: faces are cobalt-
+   tinted card tones, lines are foreground-derived, so the same drawing
+   works on the light and dark canvas. */
+.eng-root {
+  --eng-line: color-mix(in srgb, var(--foreground) 26%, transparent);
+  --eng-ink: color-mix(in srgb, var(--foreground) 85%, transparent);
+  --eng-face-d: color-mix(in srgb, var(--primary) 32%, var(--card));
+  --eng-face-m: color-mix(in srgb, var(--primary) 16%, var(--card));
+  --eng-face-t: color-mix(in srgb, var(--primary) 24%, var(--card));
+  --eng-plate: color-mix(in srgb, var(--primary) 6%, var(--card));
+  --eng-plate-under: color-mix(in srgb, var(--foreground) 9%, var(--card));
+  --eng-node-line: color-mix(in srgb, var(--foreground) 42%, transparent);
+}
+
+.eng-plate-top,
+.eng-plate-under {
+  stroke: var(--eng-line);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.eng-plate-top {
+  fill: var(--eng-plate);
+}
+.eng-plate-under {
+  fill: var(--eng-plate-under);
+}
+
+.eng-circuit {
+  fill: none;
+  stroke: #2dd4bf;
+  stroke-width: 1.3;
+  opacity: 0.75;
+  stroke-linecap: round;
+  stroke-dasharray: 5 8;
+  animation: eng-circuit-flow 5s linear infinite;
+}
+.eng-pad {
+  fill: #2dd4bf;
+  opacity: 0.8;
+}
+
+.eng-orbit {
+  fill: none;
+  stroke: var(--eng-line);
+  stroke-width: 1;
+}
+.eng-orbit-dash {
+  stroke-dasharray: 2 7;
+}
+
+.eng-beam {
+  fill: none;
+  stroke: color-mix(in srgb, var(--primary) 42%, transparent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 3 9;
+  animation: eng-beam-flow 1.3s linear infinite;
+  animation-delay: var(--bd, 0s);
+  transition: stroke 0.25s ease, stroke-width 0.25s ease;
+}
+.eng-beam-hot {
+  stroke: var(--primary);
+  stroke-width: 1.9;
+}
+
+.eng-face-l,
+.eng-face-r,
+.eng-face-t {
+  stroke: var(--eng-line);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  transition:
+    stroke 0.3s ease,
+    fill 0.3s ease;
+}
+.eng-face-l {
+  fill: var(--eng-face-d);
+}
+.eng-face-r {
+  fill: var(--eng-face-m);
+}
+.eng-face-t {
+  fill: var(--eng-face-t);
+}
+.eng-core-active .eng-face-l,
+.eng-core-active .eng-face-r,
+.eng-core-active .eng-face-t {
+  stroke: var(--primary);
+}
+
+.eng-ring-base {
+  fill: none;
+  stroke: var(--eng-line);
+  stroke-width: 1;
+}
+/* The turbine reads as spinning because dashes circulate around the rim. */
+.eng-ring-flow {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 6 10;
+  opacity: 0.85;
+  animation: eng-ring-flow 6s linear infinite;
+}
+.eng-ring-tick {
+  stroke: var(--primary);
+  stroke-width: 1.6;
+}
+
+.eng-node {
+  transition: opacity 0.25s ease;
+}
+.eng-node-dim {
+  opacity: 0.35;
+}
+.eng-node-core {
+  fill: var(--card);
+  stroke: var(--eng-node-line);
+  stroke-width: 1.4;
+  transition:
+    fill 0.25s ease,
+    stroke 0.25s ease;
+}
+.eng-node-core-hot {
+  fill: color-mix(in srgb, var(--primary) 16%, var(--card));
+  stroke: var(--primary);
+}
+.eng-node-tr {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.eng-node-zoom {
+  transform: scale(1.26);
+}
+.eng-glyph {
+  color: var(--eng-ink);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: color 0.25s ease;
+}
+.eng-glyph-hot {
+  color: var(--primary);
+}
+.eng-node-halo {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.eng-node-halo-on {
+  animation: eng-halo 1.5s ease-out infinite;
+}
+
+.eng-glow {
+  animation: eng-breathe 3.6s ease-in-out infinite;
+}
+
+.eng-float {
+  animation: eng-float 4.2s ease-in-out infinite;
+  animation-delay: var(--fd, 0s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes eng-beam-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes eng-circuit-flow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+@keyframes eng-ring-flow {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+@keyframes eng-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes eng-halo {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+@keyframes eng-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eng-circuit,
+  .eng-beam,
+  .eng-float,
+  .eng-node-halo-on,
+  .eng-glow,
+  .eng-ring-flow {
+    animation: none;
+  }
+  .eng-node-tr,
+  .eng-node-core,
+  .eng-beam {
+    transition: none;
+  }
+}

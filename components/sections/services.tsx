@@ -87,7 +87,7 @@ export const Services = () => {
 
       <div className="section-reveal">
         <SectionHeading
-          label="The disciplines"
+          label="Design & build"
           title="How we deliver."
           indexInlineFrom="xl"
         />

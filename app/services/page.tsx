@@ -1,16 +1,15 @@
 import type { Metadata } from "next"
 import { PageHeader } from "@/components/sections/page-header"
-import { ServicesPillars } from "@/components/sections/services-pillars"
+import { ServicesEngine } from "@/components/sections/services-engine"
 import { Services } from "@/components/sections/services"
 import { ServicesProcess } from "@/components/sections/services-process"
 import { ServicesCta } from "@/components/sections/services-cta"
 import { CtaBand } from "@/components/sections/cta-band"
-import { services } from "@/lib/constants/services"
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Three pillars, six disciplines, one senior team — applied AI, autonomous workflows, and product engineering carried from first sketch to production deploy.",
+    "One intelligent engine, seven modules — applied AI, autonomous workflows, RAG, cloud, 60fps apps — delivered by six design-and-build disciplines and one senior team.",
 }
 
 const ServicesPage = () => {
@@ -18,21 +17,21 @@ const ServicesPage = () => {
     <div className="mb-8">
       <PageHeader
         label="What we do"
-        title="Six disciplines. One senior team."
-        intro="One compact team carries your project the whole way — from the first moodboard to the last deploy. No handoffs between agencies, no lost context."
-        meta={`${services.length} services`}
+        title="The intelligent engine, and the team that builds it."
+        intro="Seven engineering modules plugged into one machine — the engine runs your operation, and the disciplines below build, wire and maintain it."
+        meta="07 modules · 06 disciplines"
       />
 
-      {/* The three pillars — what you get */}
-      <ServicesPillars />
+      {/* S01 — The intelligent engine (priority) */}
+      <ServicesEngine />
 
-      {/* The disciplines — how we deliver it */}
+      {/* S02 — Design & build, the six disciplines */}
       <Services />
 
-      {/* The cadence — how it runs week to week */}
+      {/* S03 — The cadence */}
       <ServicesProcess />
 
-      {/* Mid-page conversion moment */}
+      {/* S04 — Mid-page conversion moment */}
       <ServicesCta />
 
       <CtaBand

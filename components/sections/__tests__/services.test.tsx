@@ -13,7 +13,7 @@ describe("Services", () => {
   it("renders the section heading and pitch", () => {
     renderWithProviders(<Services />)
 
-    expect(screen.getByText("The disciplines")).toBeInTheDocument()
+    expect(screen.getByText("Design & build")).toBeInTheDocument()
     expect(
       screen.getByRole("heading", { name: "How we deliver." })
     ).toBeInTheDocument()
