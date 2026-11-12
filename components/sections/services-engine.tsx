@@ -10,13 +10,15 @@ import { cn } from "@/lib/utils"
  * S01 — The Intelligent Engine. The page's priority: the seven
  * Intelligent Engineering services presented as one living machine.
  *
- * Left: a hand-coded isometric engine (SVG) — a reactor core with a
- * circulating turbine ring on a circuit-etched platform, two orbital
- * rails carrying six module nodes, and data beams that always pulse
- * from the core. Hovering a row spotlights that module: its node zooms,
- * its beam turns hot, and the readout swaps. All continuous motion is
- * pure CSS and switches off under prefers-reduced-motion; the readout
- * swap is framer-motion, gated by the same query.
+ * Left: a hand-coded isometric engine scene (SVG) — a reactor core with
+ * a burning energy cell, twin circulating turbine rings, an antenna, a
+ * coolant tank fed by an animated pipe, a scanning radar sweep, two
+ * orbital rails with six module nodes, and data beams that carry
+ * traveling light packets. Hovering a row spotlights that module: its
+ * node zooms, its beam turns hot, the core flares, and the readout
+ * swaps. Continuous motion is pure CSS (+ one SMIL sweep) and switches
+ * off under prefers-reduced-motion; the readout swap is framer-motion,
+ * gated by the same query.
  *
  * Right: the seven module rows (deck items 08–14) — number, name,
  * outcome line, deliverable chips. Rows reuse the .svc-row scanner and
@@ -56,6 +58,7 @@ const rhomb = (cx: number, cy: number, w: number, h: number) =>
 
 const PLAT_TOP = rhomb(280, 358, 178, 90)
 const PLAT_UNDER = rhomb(280, 371, 178, 90)
+const PLAT_INNER = rhomb(280, 358, 148, 75)
 const CUBE_A = iso(280, 284, 44)
 const CUBE_B = iso(280, 244, 26)
 
@@ -64,6 +67,25 @@ const CIRCUIT_PADS: Array<[number, number]> = [
   [372, 320],
   [268, 362],
   [296, 358],
+]
+
+/* Ambient particles drifting up through the scene. */
+const MOTES: Array<[number, number, number]> = [
+  [148, 296, 5],
+  [214, 150, 4],
+  [332, 118, 6],
+  [448, 262, 4],
+  [402, 200, 5],
+]
+
+/* Twinkling backdrop stars. */
+const STARS: Array<[number, number, number]> = [
+  [92, 132, 1.8],
+  [182, 96, 1.4],
+  [470, 118, 1.8],
+  [516, 208, 1.3],
+  [64, 262, 1.4],
+  [500, 330, 1.6],
 ]
 
 /** Minimal geometric glyph per module, drawn inside a ±5 box. */
@@ -123,39 +145,116 @@ function EngineSVG({ active, reduced }: { active: string | null; reduced: boolea
           <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.5" />
           <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
         </radialGradient>
+        <radialGradient id="eng-nebula" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.16" />
+          <stop offset="60%" stopColor="var(--primary)" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="eng-shadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="var(--foreground)" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="var(--foreground)" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="eng-corefire" cx="50%" cy="45%" r="60%">
+          <stop offset="0%" stopColor="#dbe4ff" />
+          <stop offset="35%" stopColor="var(--primary)" />
+          <stop offset="100%" stopColor="color-mix(in srgb, var(--primary) 55%, #0a0e1a)" />
+        </radialGradient>
+        <linearGradient id="eng-sweep-grad" gradientUnits="userSpaceOnUse" x1="280" y1="358" x2="280" y2="264">
+          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+        </linearGradient>
+        <pattern id="eng-grid" width="26" height="26" patternUnits="userSpaceOnUse">
+          <circle cx="1.2" cy="1.2" r="1.1" className="eng-grid-dot" />
+        </pattern>
+        <filter id="eng-soft" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
       </defs>
 
-      {/* Platform (extrusion below, etched plate on top) */}
+      {/* Backdrop: micro-grid, twinkling stars, nebula wash */}
+      <rect x="0" y="64" width="560" height="436" fill="url(#eng-grid)" />
+      {STARS.map(([x, y, r], i) => (
+        <circle
+          key={`star-${i}`}
+          cx={x}
+          cy={y}
+          r={r}
+          className="eng-star"
+          style={{ "--sd": `${(i % 4) * 0.9}s` } as React.CSSProperties}
+        />
+      ))}
+      <circle cx="280" cy="262" r="176" fill="url(#eng-nebula)" className="eng-nebula" />
+
+      {/* Platform: extrusion, etched plate, blueprint inset, circuits */}
       <path d={PLAT_UNDER} className="eng-plate-under" />
       <path d={PLAT_TOP} className="eng-plate-top" />
+      <path d={PLAT_INNER} className="eng-plate-inner" />
       <path d="M 120 358 L 190 323 L 268 362" className="eng-circuit" />
       <path d="M 440 354 L 372 320 L 296 358" className="eng-circuit" />
       {CIRCUIT_PADS.map(([x, y]) => (
         <circle key={`${x}-${y}`} cx={x} cy={y} r="2.6" className="eng-pad" />
       ))}
 
-      {/* Core glow */}
-      <circle cx="280" cy="250" r="92" fill="url(#eng-glow)" className="eng-glow" />
+      {/* Radar sweep — SMIL rotation around the platform center */}
+      {!reduced && (
+        <g opacity="0.85">
+          <line x1="280" y1="358" x2="280" y2="268" stroke="url(#eng-sweep-grad)" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="280" cy="268" r="2.4" className="eng-pad" />
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 280 358"
+            to="360 280 358"
+            dur="11s"
+            repeatCount="indefinite"
+          />
+        </g>
+      )}
+
+      {/* Core shadow + breathing glow */}
+      <ellipse cx="280" cy="354" rx="50" ry="21" fill="url(#eng-shadow)" />
+      <circle cx="280" cy="250" r="94" fill="url(#eng-glow)" className="eng-glow" />
 
       {/* Orbital rails */}
       <ellipse cx={CORE.x} cy={CORE.y} rx={ORBITS.outer.rx} ry={ORBITS.outer.ry} className="eng-orbit" />
       <ellipse cx={CORE.x} cy={CORE.y} rx={ORBITS.inner.rx} ry={ORBITS.inner.ry} className="eng-orbit eng-orbit-dash" />
 
-      {/* Data beams — always flowing, hot for the active module */}
+      {/* Data beams with traveling light packets */}
       {orbiters.map((m, i) => {
         const p = nodePos(m)
         return (
-          <line
-            key={`beam-${m.key}`}
-            x1={BEAM_SOURCE.x}
-            y1={BEAM_SOURCE.y}
-            x2={p.x}
-            y2={p.y}
-            className={cn("eng-beam", active === m.key && "eng-beam-hot")}
-            style={{ "--bd": `${(i % 4) * 0.22}s` } as React.CSSProperties}
-          />
+          <g key={`beam-${m.key}`}>
+            <line
+              x1={BEAM_SOURCE.x}
+              y1={BEAM_SOURCE.y}
+              x2={p.x}
+              y2={p.y}
+              className={cn("eng-beam", active === m.key && "eng-beam-hot")}
+              style={{ "--bd": `${(i % 4) * 0.22}s` } as React.CSSProperties}
+            />
+            {!reduced && (
+              <circle
+                r="2.4"
+                className="eng-packet"
+                style={
+                  {
+                    "--pp": `path("M ${BEAM_SOURCE.x} ${BEAM_SOURCE.y} L ${p.x} ${p.y}")`,
+                    "--pd": `${(i % 3) * 0.65}s`,
+                  } as React.CSSProperties
+                }
+              />
+            )}
+          </g>
         )
       })}
+
+      {/* Coolant tank (iso cylinder) */}
+      <path d="M 383 320 L 383 349 A 15 7.5 0 0 0 413 349 L 413 320" className="eng-tank" />
+      <ellipse cx="398" cy="320" rx="15" ry="7.5" className="eng-tank-cap" />
+
+      {/* Feed pipe with animated coolant flow */}
+      <path d="M 318 336 H 350 V 322 H 383" className="eng-pipe" />
+      <path d="M 318 336 H 350 V 322 H 383" className="eng-pipe-flow" />
 
       {/* Reactor core — two stacked iso cubes */}
       <g className={cn("eng-core", coreActive && "eng-core-active")}>
@@ -167,10 +266,19 @@ function EngineSVG({ active, reduced }: { active: string | null; reduced: boolea
         <path d={CUBE_B.top} className="eng-face-t" />
       </g>
 
-      {/* Turbine ring — dashes circulate, so it reads as spinning in iso */}
-      <g transform="translate(280 216)">
+      {/* Energy cell burning on the top face */}
+      {!reduced && <circle cx="280" cy="244" r="21" fill="url(#eng-glow)" className="eng-cell-halo" />}
+      <path d={rhomb(280, 244, 13, 7)} className="eng-cell" />
+
+      {/* Antenna with a blinking beacon */}
+      <line x1="242" y1="284" x2="233" y2="256" className="eng-antenna" />
+      <circle cx="233" cy="254" r="2.6" className="eng-beacon" />
+
+      {/* Twin turbine rings — dashes circulate, reading as a spin in iso */}
+      <g transform="translate(280 206)">
         <ellipse rx="54" ry="28" className="eng-ring-base" />
         {!reduced && <ellipse rx="54" ry="28" className="eng-ring-flow" />}
+        {!reduced && <ellipse rx="42" ry="21.5" className="eng-ring-flow-rev" />}
         <line x1="-54" y1="0" x2="-40" y2="0" className="eng-ring-tick" />
         <line x1="54" y1="0" x2="40" y2="0" className="eng-ring-tick" />
       </g>
@@ -191,6 +299,7 @@ function EngineSVG({ active, reduced }: { active: string | null; reduced: boolea
               <circle r="15" className={cn("eng-node-halo", isA && "eng-node-halo-on")} />
               <g className={cn("eng-node-tr", isA && "eng-node-zoom")}>
                 <circle r="15" className={cn("eng-node-core", isA && "eng-node-core-hot")} />
+                <circle r="2.4" className="eng-node-pin" />
                 <g transform="scale(1.18)" className={cn("eng-glyph", isA && "eng-glyph-hot")}>
                   <Glyph k={m.key} />
                 </g>
@@ -199,6 +308,17 @@ function EngineSVG({ active, reduced }: { active: string | null; reduced: boolea
           </g>
         )
       })}
+
+      {/* Drifting motes */}
+      {!reduced &&
+        MOTES.map(([x, y, s], i) => (
+          <path
+            key={`mote-${i}`}
+            d={rhomb(x, y, s, s * 0.55)}
+            className="eng-mote"
+            style={{ "--md": `${(i % 3) * 1.9}s` } as React.CSSProperties}
+          />
+        ))}
     </svg>
   )
 }

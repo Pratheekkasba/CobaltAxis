@@ -1355,6 +1355,13 @@ body[data-drawer-open] [data-scale-container] {
 .eng-plate-under {
   fill: var(--eng-plate-under);
 }
+.eng-plate-inner {
+  fill: none;
+  stroke: var(--eng-line);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  opacity: 0.7;
+}
 
 .eng-circuit {
   fill: none;
@@ -1445,6 +1452,12 @@ body[data-drawer-open] [data-scale-container] {
 .eng-node-dim {
   opacity: 0.35;
 }
+.eng-node-pin {
+  fill: currentColor;
+  stroke: none;
+  color: var(--eng-ink);
+  opacity: 0.45;
+}
 .eng-node-core {
   fill: var(--card);
   stroke: var(--eng-node-line);
@@ -1500,6 +1513,90 @@ body[data-drawer-open] [data-scale-container] {
   transform-origin: center;
 }
 
+/* Scene ambience */
+.eng-grid-dot {
+  fill: var(--foreground);
+  opacity: 0.07;
+}
+.eng-star {
+  fill: var(--primary);
+  animation: eng-twinkle 3.4s ease-in-out infinite;
+  animation-delay: var(--sd, 0s);
+}
+.eng-nebula {
+  animation: eng-breathe 5.2s ease-in-out infinite;
+}
+.eng-sweep-line {
+  stroke: var(--primary);
+}
+
+/* Coolant tank + pipe */
+.eng-tank {
+  fill: var(--eng-face-m);
+  stroke: var(--eng-line);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.eng-tank-cap {
+  fill: var(--eng-face-t);
+  stroke: var(--eng-line);
+  stroke-width: 1.4;
+}
+.eng-pipe {
+  fill: none;
+  stroke: var(--eng-face-d);
+  stroke-width: 5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.eng-pipe-flow {
+  fill: none;
+  stroke: #2dd4bf;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 4 7;
+  animation: eng-pipe-flow 1.6s linear infinite;
+}
+
+/* Burning energy cell */
+.eng-cell {
+  fill: url(#eng-corefire);
+  stroke: color-mix(in srgb, #ffffff 55%, var(--primary));
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eng-corepulse 2.4s ease-in-out infinite;
+}
+.eng-cell-halo {
+  animation: eng-breathe 2.4s ease-in-out infinite;
+}
+.eng-antenna {
+  stroke: var(--eng-node-line);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+.eng-beacon {
+  fill: #ff6b4a;
+  animation: eng-blink 1.8s ease-in-out infinite;
+}
+
+/* Traveling data packets along the beams */
+.eng-packet {
+  fill: var(--primary);
+  offset-path: var(--pp);
+  offset-rotate: 0deg;
+  animation: eng-travel 2s linear infinite;
+  animation-delay: var(--pd, 0s);
+}
+
+/* Drifting motes */
+.eng-mote {
+  fill: var(--primary);
+  opacity: 0;
+  animation: eng-drift 7s ease-in-out infinite;
+  animation-delay: var(--md, 0s);
+}
+
 @keyframes eng-beam-flow {
   to {
     stroke-dashoffset: -24;
@@ -1510,9 +1607,28 @@ body[data-drawer-open] [data-scale-container] {
     stroke-dashoffset: -26;
   }
 }
+@keyframes eng-pipe-flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
 @keyframes eng-ring-flow {
   to {
     stroke-dashoffset: -64;
+  }
+}
+.eng-ring-flow-rev {
+  fill: none;
+  stroke: color-mix(in srgb, var(--primary) 55%, transparent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 3 11;
+  opacity: 0.6;
+  animation: eng-ring-flow-rev 9s linear infinite;
+}
+@keyframes eng-ring-flow-rev {
+  to {
+    stroke-dashoffset: 84;
   }
 }
 @keyframes eng-float {
@@ -1543,6 +1659,67 @@ body[data-drawer-open] [data-scale-container] {
     opacity: 0.95;
   }
 }
+@keyframes eng-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes eng-corepulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 1;
+  }
+}
+@keyframes eng-blink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes eng-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes eng-drift {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.65;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-52px);
+    opacity: 0;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .eng-circuit,
@@ -1550,8 +1727,23 @@ body[data-drawer-open] [data-scale-container] {
   .eng-float,
   .eng-node-halo-on,
   .eng-glow,
-  .eng-ring-flow {
+  .eng-ring-flow,
+  .eng-ring-flow-rev,
+  .eng-star,
+  .eng-nebula,
+  .eng-pipe-flow,
+  .eng-cell,
+  .eng-cell-halo,
+  .eng-beacon,
+  .eng-mote {
     animation: none;
+  }
+  .eng-packet,
+  .eng-mote {
+    display: none;
+  }
+  .eng-star {
+    opacity: 0.4;
   }
   .eng-node-tr,
   .eng-node-core,
