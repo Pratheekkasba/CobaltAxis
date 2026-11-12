@@ -14,7 +14,7 @@ export function Integrations() {
   return (
     <div>
       <SectionHeading
-        label="Section 06 / Ecosystem"
+        label="Section 06 / Integrations"
         title="Ecosystem."
         indexInlineFrom="xl"
       />

@@ -77,7 +77,7 @@ const MarqueeGroup = ({ hidden = false }: { hidden?: boolean }) => (
 
 export const Ecosystem = () => {
   return (
-    <section id="ecosystem" className="relative mb-28 md:mb-36">
+    <section id="ecosystem" className="relative mb-24 md:mb-32">
       <div className="ecosystem-reveal">
         <SectionHeading
           label="Section 02 / Architecture"

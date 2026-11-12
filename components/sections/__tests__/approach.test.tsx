@@ -11,7 +11,7 @@ describe("Approach", () => {
   it("renders the section heading", () => {
     renderWithProviders(<Approach />)
 
-    expect(screen.getByText("Section 04 / Our Approach")).toBeInTheDocument()
+    expect(screen.getByText("Section 03 / Our Approach")).toBeInTheDocument()
     expect(
       screen.getByRole("heading", { name: /how we engineer/i }),
     ).toBeInTheDocument()

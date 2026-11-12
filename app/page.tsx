@@ -15,21 +15,21 @@ const Home = () => {
       {/* Section 02: Intelligent engineering ecosystem */}
       <Ecosystem />
 
-      {/* Section 03: Capabilities (Editorial feature showcases) */}
-      <Capabilities />
-
-      {/* Section 04: Our Approach (Convergence diagram) */}
+      {/* Section 03: Our Approach (Convergence diagram) */}
       <Approach />
+
+      {/* Section 04: Capabilities (Three pillars. One connected stack) */}
+      <Capabilities />
 
       {/* Section 05: Who We Are (Editorial statement) */}
       <About />
 
-      {/* Integrations */}
-      <section id="integrations" className="mb-28 overflow-x-clip md:mb-36">
+      {/* Section 06: Integrations */}
+      <section id="integrations" className="mb-24 md:mb-32 overflow-x-clip">
         <Integrations />
       </section>
 
-      {/* Section 06: Start a Conversation */}
+      {/* Section 07: Start a Conversation */}
       <ContactCTA />
     </>
   )

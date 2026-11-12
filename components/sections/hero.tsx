@@ -81,13 +81,15 @@ export const Hero = () => {
           className="hero-fx mt-9 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row md:mt-10"
           style={{ "--d": "1.2s" } as React.CSSProperties}
         >
-          <Link
-            href="/contact"
+          <a
+            href="https://cal.com/cobalt-axis/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hero-cta hero-cta-primary group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground hover:bg-accent-foreground sm:w-auto"
           >
             Start a Conversation
             <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+          </a>
           <Link
             href="/work"
             className="hero-cta hero-cta-secondary group inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background px-8 py-4 text-sm font-semibold text-foreground hover:border-foreground/20 hover:bg-secondary sm:w-auto"

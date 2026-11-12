@@ -1,8 +1,9 @@
-import { Geist, Geist_Mono, Inter_Tight } from "next/font/google"
+import { Geist, Geist_Mono, Inter_Tight, Michroma } from "next/font/google"
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from "./providers"
+import { WhatsAppFloat } from "@/components/ui/whatsapp-float"
 import { WebNav } from "@/components/layout/web-nav"
 import { MobileNav } from "@/components/layout/mobile-nav"
 import { Footer } from "@/components/sections/footer"
@@ -24,6 +25,15 @@ const fontSans = Geist({
 })
 
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
+
+// Brand wordmark face: the Eurostile-Extended-style letterforms of the
+// official Cobalt Axis logo (wide, squared, uniform strokes). Used only by
+// the logo component so the mark renders identically everywhere.
+const logoFont = Michroma({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-logo",
+})
 
 // Vercel exposes the production domain at build time; fall back to localhost so
 // absolute URLs (and the OG image) resolve in development too.
@@ -87,7 +97,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         fontSans.variable,
         "font-sans",
         geistMono.variable,
-        displayFont.variable
+        displayFont.variable,
+        logoFont.variable
       )}
     >
       <body>
@@ -119,6 +130,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           {/* Full-bleed footer (sketchbook paper spans the viewport edge to
               edge), outside the scaling container but on every route. */}
           <Footer />
+          {/* Floating WhatsApp contact button */}
+          <WhatsAppFloat />
         </Providers>
         <Analytics />
         <SpeedInsights />

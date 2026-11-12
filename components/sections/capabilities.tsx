@@ -2,7 +2,7 @@ import Image from "next/image"
 import { SectionHeading } from "./section-heading"
 
 /*
- * Section 03 — the three architectural pillars, presented as an editorial
+ * Section 04 — the three architectural pillars, presented as an editorial
  * Swiss layout: spacious horizontal showcases separated by hairlines, each
  * pairing a numbered text column (kicker, heading, description, 2x2 spec
  * matrix) with a large framed isometric illustration whose technical frame
@@ -97,10 +97,10 @@ const FeatureFrame = ({
 
 export const Capabilities = () => {
   return (
-    <section id="capabilities" className="relative mb-28 md:mb-36">
+    <section id="capabilities" className="relative mb-24 md:mb-32">
       <div className="section-reveal">
         <SectionHeading
-          label="Section 03 / Capabilities"
+          label="Section 04 / Capabilities"
           title="Three pillars. One connected stack."
           // Long title + mono index fight for one line between md and xl, so
           // the index stacks below the heading until the full row fits.

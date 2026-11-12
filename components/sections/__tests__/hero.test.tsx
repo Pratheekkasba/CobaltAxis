@@ -36,7 +36,10 @@ describe("Hero", () => {
 
     expect(
       screen.getByRole("link", { name: /start a conversation/i })
-    ).toHaveAttribute("href", "/contact")
+    ).toHaveAttribute("href", "https://cal.com/cobalt-axis/30min")
+    expect(
+      screen.getByRole("link", { name: /start a conversation/i })
+    ).toHaveAttribute("target", "_blank")
     expect(
       screen.getByRole("link", { name: /explore our work/i })
     ).toHaveAttribute("href", "/work")

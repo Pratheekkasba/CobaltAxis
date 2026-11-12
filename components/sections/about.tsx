@@ -129,7 +129,7 @@ export const About = () => {
   })
 
   return (
-    <section id="about" className="mb-28 md:mb-36">
+    <section id="about" className="mb-24 md:mb-32">
       <SectionHeading
         label="Section 05 / About"
         title="Who we are."

@@ -1212,3 +1212,117 @@ body[data-drawer-open] [data-scale-container] {
   --dcf-ink: #161D3A;
   --dcf-accent: #5669FF;
 }
+
+/* ============ Services page ============ */
+
+/* Hover scanner: a cobalt light sweeps along the row's top hairline. */
+.svc-row {
+  position: relative;
+}
+
+.svc-row::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary) 45%,
+    var(--primary) 55%,
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.svc-row:hover::after,
+.svc-row:focus-within::after {
+  transform: scaleX(1);
+}
+
+/* Deliverable chips warm up in sequence while their row is hovered.
+   --chip-i is set inline per chip so the delay cascades left to right. */
+.svc-chip {
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background-color 0.25s ease;
+  transition-delay: calc(var(--chip-i, 0) * 45ms);
+}
+
+.svc-row:hover .svc-chip,
+.svc-row:focus-within .svc-chip {
+  border-color: color-mix(in srgb, var(--primary) 38%, var(--border));
+  color: var(--foreground);
+  background-color: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+/* Discipline ticker: the same continuous rail voice as the ecosystem marquee. */
+@keyframes services-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.services-marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.services-marquee-track {
+  animation: services-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.services-marquee:hover .services-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-row::after {
+    transition: none;
+  }
+  .svc-chip {
+    transition: none;
+    transition-delay: 0ms;
+  }
+  /* Static fallback: wrapped chip row, loop copy hidden. */
+  .services-marquee-fade {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .services-marquee-track {
+    animation: none;
+    will-change: auto;
+    width: 100%;
+  }
+  .services-marquee-track ul {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+  .services-marquee-track ul[aria-hidden="true"] {
+    display: none;
+  }
+}

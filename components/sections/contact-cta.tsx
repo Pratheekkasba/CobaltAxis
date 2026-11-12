@@ -42,7 +42,7 @@ export const ContactCTA = () => {
   }
 
   return (
-    <section id="contact" className="mb-28 md:mb-36">
+    <section id="contact" className="mb-24 md:mb-32">
       <SectionHeading label="Section 07 / Enquiry" title="Start a conversation." />
 
       <div className="spec-sheet-grid relative overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-b from-slate-50/70 to-white dark:border-white/[0.08] dark:from-[#0F1524] dark:to-[#0A0E1A]">

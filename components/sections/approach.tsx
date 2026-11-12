@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react"
 import { SectionHeading } from "./section-heading"
 
 /*
- * Section 04 — Our Approach. A hairline-framed architectural diagram:
+ * Section 03 — Our Approach. A hairline-framed architectural diagram:
  * Complex Operations splits into three cubic-bezier paths (AI Agents & Applied
  * RAG, Autonomous Workflows, Cloud & Web Engineering) that converge into
  * Production System. A cobalt + white light pulse travels left-to-right along
@@ -128,10 +128,10 @@ export const Approach = () => {
   }, [])
 
   return (
-    <section id="approach" className="relative mb-28 md:mb-36">
+    <section id="approach" className="relative mb-24 md:mb-32">
       <div className="section-reveal">
         <SectionHeading
-          label="Section 04 / Our Approach"
+          label="Section 03 / Our Approach"
           title="How we engineer."
           indexInlineFrom="xl"
         />
