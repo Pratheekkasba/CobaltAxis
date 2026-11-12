@@ -1,206 +1,175 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion, useInView } from "framer-motion"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Fragment, useRef, useSyncExternalStore } from "react"
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion"
+import { Cpu, Sparkles } from "lucide-react"
 import { SectionHeading } from "./section-heading"
 
-const values = [
-  {
-    title: "Craft",
-    desc: "We sweat the details others skip — the easing curve, the empty state, the last 5%.",
-  },
-  {
-    title: "Candor",
-    desc: "Direct, senior collaborators. No account-manager telephone, no hidden roadmaps.",
-  },
-  {
-    title: "Momentum",
-    desc: "Small teams, short loops, real work shipping every week — never a black box.",
-  },
-  {
-    title: "Ownership",
-    desc: "We treat your product like ours: outcomes over deliverables, always.",
-  },
+/*
+ * Section 05 — Who we are. A massive centered editorial statement with a
+ * scroll-triggered word-by-word opacity reveal, inline cobalt badges for
+ * "craft" and "technology", and a 3-column studio proof strip beneath.
+ */
+
+type Token =
+  | { kind: "word"; text: string }
+  | { kind: "badge"; text: "craft" | "technology" }
+
+const STATEMENT_TOKENS: Token[] = [
+  { kind: "word", text: "We're" },
+  { kind: "word", text: "a" },
+  { kind: "word", text: "compact" },
+  { kind: "word", text: "studio" },
+  { kind: "word", text: "of" },
+  { kind: "word", text: "designers" },
+  { kind: "word", text: "and" },
+  { kind: "word", text: "engineers" },
+  { kind: "word", text: "who" },
+  { kind: "word", text: "believe" },
+  { kind: "word", text: "great" },
+  { kind: "word", text: "digital" },
+  { kind: "word", text: "work" },
+  { kind: "word", text: "lives" },
+  { kind: "word", text: "where" },
+  { kind: "badge", text: "craft" },
+  { kind: "word", text: "meets" },
+  { kind: "badge", text: "technology" },
+  { kind: "word", text: "to" },
+  { kind: "word", text: "build" },
+  { kind: "word", text: "intelligent" },
+  { kind: "word", text: "systems" },
+  { kind: "word", text: "and" },
+  { kind: "word", text: "products" },
+  { kind: "word", text: "that" },
+  { kind: "word", text: "feel" },
+  { kind: "word", text: "inevitable." },
 ]
 
-type Fact = {
-  value: number
-  label: string
-  count: boolean
-  suffix?: string
-}
+const PROOF_PILLARS = [
+  { code: "01 / ARCHITECTURE", copy: "Built for scale & zero bottlenecks." },
+  { code: "02 / VELOCITY", copy: "Direct-to-engineer execution." },
+  { code: "03 / PRECISION", copy: "60fps interfaces & resilient AI." },
+] as const
 
-const facts: Fact[] = [
-  { value: 2025, label: "Founded", count: false },
-  { value: 8, label: "People", count: true },
-  { value: 100, label: "In-House Team", count: true, suffix: "%" },
-]
+function RevealToken({
+  token,
+  index,
+  total,
+  progress,
+  reduced,
+}: {
+  token: Token
+  index: number
+  total: number
+  progress: MotionValue<number>
+  reduced: boolean
+}) {
+  const start = (index / total) * 0.72
+  const end = Math.min(1, start + 0.28)
+  const opacity = useTransform(progress, [start, end], [0.18, 1])
 
-// Splits a chunk of the manifesto into per-word spans the scroll timeline can
-// brighten one at a time.
-type RevealWordsProps = {
-  text: string
-}
+  if (token.kind === "badge") {
+    const Icon = token.text === "craft" ? Sparkles : Cpu
+    return (
+      <motion.span
+        style={{ opacity: reduced ? 1 : opacity }}
+        className="inline-flex items-center gap-1.5 rounded-full border border-[#3B5BDB]/25 bg-[#3B5BDB]/[0.08] px-3.5 py-0.5 text-[#3B5BDB] align-baseline dark:border-[#6B7DFF]/35 dark:bg-[#6B7DFF]/15 dark:text-[#6B7DFF] sm:gap-2"
+      >
+        <Icon
+          aria-hidden="true"
+          strokeWidth={1.75}
+          className="size-5 shrink-0 sm:size-7 lg:size-8"
+        />
+        <span>{token.text}</span>
+      </motion.span>
+    )
+  }
 
-const RevealWords = ({ text }: RevealWordsProps) => {
   return (
-    <>
-      {text
-        .trim()
-        .split(/\s+/)
-        .map((word, i) => (
-          <span key={i} className="reveal-word">
-            {word}{" "}
-          </span>
-        ))}
-    </>
+    <motion.span
+      style={{ opacity: reduced ? 1 : opacity }}
+      className="inline-block"
+    >
+      {token.text}
+    </motion.span>
   )
 }
 
-type StatNumberProps = {
-  value: number
-  count: boolean
+const subscribeReducedMotion = (cb: () => void) => {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return () => {}
+  }
+  const mql = window.matchMedia("(prefers-reduced-motion: reduce)")
+  mql.addEventListener("change", cb)
+  return () => mql.removeEventListener("change", cb)
 }
 
-const StatNumber = ({ value, count }: StatNumberProps) => {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+const getReducedMotionSnapshot = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (!count) {
-      el.textContent = String(value)
-      return
-    }
-    if (!inView) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = String(value)
-      return
-    }
-    const counter = { v: 0 }
-    const tween = gsap.to(counter, {
-      v: value,
-      duration: 1.6,
-      ease: "power2.out",
-      onUpdate: () => {
-        el.textContent = String(Math.round(counter.v))
-      },
-    })
-    return () => {
-      tween.kill()
-    }
-  }, [inView, count, value])
-
-  return <span ref={ref}>{count ? 0 : value}</span>
-}
+const getReducedMotionServerSnapshot = () => false
 
 export const About = () => {
-  const sectionRef = useRef<HTMLElement>(null)
-  const textRef = useRef<HTMLParagraphElement>(null)
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-    const ctx = gsap.context(() => {
-      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
-        // Brighten the manifesto word-by-word, scrubbed to scroll position —
-        // over a range that spans the paragraph's travel through the viewport.
-        gsap.fromTo(
-          ".reveal-word",
-          { opacity: 0.3 },
-          {
-            opacity: 1,
-            ease: "none",
-            stagger: 0.4,
-            scrollTrigger: {
-              trigger: textRef.current,
-              start: "top 80%",
-              end: "bottom 60%",
-              scrub: true,
-            },
-          }
-        )
-      })
-    }, sectionRef)
-
-    // Content above (e.g. the async Projects sections) grows after fetch and
-    // pushes this section down, invalidating the trigger's cached positions.
-    // Recompute them whenever the page height changes.
-    let raf = 0
-    const ro = new ResizeObserver(() => {
-      if (raf) return
-      raf = requestAnimationFrame(() => {
-        raf = 0
-        ScrollTrigger.refresh()
-      })
-    })
-    ro.observe(document.body)
-
-    return () => {
-      if (raf) cancelAnimationFrame(raf)
-      ro.disconnect()
-      ctx.revert()
-    }
-  }, [])
+  const statementRef = useRef<HTMLParagraphElement>(null)
+  const reduced = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot,
+  )
+  const { scrollYProgress } = useScroll({
+    target: statementRef,
+    offset: ["start 0.88", "center 0.52"],
+  })
 
   return (
-    <section ref={sectionRef} id="about" className="mb-32">
-      <SectionHeading label="About" title="Who we are" />
+    <section id="about" className="mb-28 md:mb-36">
+      <SectionHeading
+        label="Section 05 / About"
+        title="Who we are."
+        indexInlineFrom="xl"
+      />
 
-      <p
-        ref={textRef}
-        className="mx-auto max-w-5xl text-center text-3xl leading-[1.2] font-bold tracking-tight md:text-6xl md:leading-[1.15]"
-      >
-        <RevealWords text="We're a compact studio of designers and engineers who believe great digital work lives where" />
-        <span className="font-sans text-primary">craft</span>{" "}
-        <RevealWords text="meets" />
-        <span className="font-sans text-primary">technology</span>{" "}
-        <RevealWords text="— building brands and products that feel inevitable." />
-      </p>
+      <div className="py-12 sm:py-16 lg:py-24">
+        <p
+          ref={statementRef}
+          className="mx-auto max-w-[66rem] text-center text-3xl font-medium tracking-tight leading-[1.16] text-[#0F172A] dark:text-foreground sm:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
+        >
+          {STATEMENT_TOKENS.map((token, index) => (
+            <Fragment key={`${token.text}-${index}`}>
+              <RevealToken
+                token={token}
+                index={index}
+                total={STATEMENT_TOKENS.length}
+                progress={scrollYProgress}
+                reduced={reduced}
+              />
+              {index < STATEMENT_TOKENS.length - 1 ? " " : null}
+            </Fragment>
+          ))}
+        </p>
 
-      {/* Stats */}
-      <div className="mt-16 grid grid-cols-3 gap-8 border-t border-border pt-10">
-        {facts.map((fact, i) => (
-          <motion.div
-            key={fact.label}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-            className="text-center"
-          >
-            <p className="text-4xl font-black tracking-tighter md:text-6xl">
-              <StatNumber value={fact.value} count={fact.count} />
-              {fact.suffix && <span className="text-primary">{fact.suffix}</span>}
-            </p>
-            <p className="mt-2 text-xs tracking-widest text-muted-foreground uppercase">
-              {fact.label}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Values */}
-      <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {values.map((value, i) => (
-          <motion.div
-            key={value.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="flex flex-col gap-3 bg-background p-8"
-          >
-            <span className="text-lg font-black tracking-tighter uppercase">
-              {value.title}
-            </span>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {value.desc}
-            </p>
-          </motion.div>
-        ))}
+        <dl className="mx-auto mt-16 grid max-w-5xl grid-cols-1 divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/[0.08] dark:border-white/[0.08] sm:mt-20 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {PROOF_PILLARS.map((pillar) => (
+            <div
+              key={pillar.code}
+              className="flex flex-col gap-2 px-6 py-5"
+            >
+              <dt className="font-mono text-xs tracking-widest text-[#3B5BDB] uppercase dark:text-[#6B7DFF]">
+                {pillar.code}
+              </dt>
+              <dd className="text-sm leading-relaxed font-medium text-slate-700 dark:text-muted-foreground sm:text-base">
+                {pillar.copy}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

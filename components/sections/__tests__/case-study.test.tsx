@@ -11,7 +11,7 @@ describe("CaseStudy", () => {
   it("renders the section heading", () => {
     renderWithProviders(<CaseStudy />)
 
-    expect(screen.getByText("(Featured)")).toBeInTheDocument()
+    expect(screen.getByText("Featured")).toBeInTheDocument()
     expect(
       screen.getByRole("heading", { name: "Case study" })
     ).toBeInTheDocument()

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import {
   Terminal,
   Activity,
@@ -22,7 +21,7 @@ export const FlagshipProject = () => {
           <span className="size-1.5 rounded-full bg-[#0052FF] dark:bg-[#3b82f6]" />
           04 // FLAGSHIP SHOWCASE
         </div>
-        <h2 className="mt-4 text-3xl font-black tracking-tighter uppercase sm:text-5xl md:text-6xl font-[family-name:var(--font-heading)]">
+        <h2 className="mt-4 text-3xl font-black tracking-tighter uppercase sm:text-5xl md:text-6xl font-[family-name:var(--font-display)]">
           Cobalt Engine.
         </h2>
         <p className="mt-2 text-sm font-mono text-muted-foreground uppercase tracking-widest">
@@ -221,7 +220,7 @@ export const FlagshipProject = () => {
                 </div>
               ) : (
                 <div className="w-full h-full rounded-xl bg-black/80 border border-white/10 p-5 font-mono text-xs text-emerald-400/90 leading-relaxed overflow-x-auto">
-                  <p className="text-white/40">// Live streaming cluster telemetry...</p>
+                  <p className="text-white/40">{"// Live streaming cluster telemetry..."}</p>
                   <p className="mt-2">
                     [10:14:02.102] <span className="text-blue-400">INFO</span> node-04 initialized worker threadpool (16 cores)
                   </p>

@@ -111,7 +111,7 @@ export const Preloader = () => {
       ref={containerRef}
       aria-label="Loading animation"
       style={{ zIndex: 999999 }}
-      className="fixed inset-0 flex flex-col items-center justify-center bg-[#07090e] text-[#f0f4f8] select-none"
+      className="fixed inset-0 flex flex-col items-center justify-center bg-chapter text-chapter-foreground select-none"
     >
       <div className="w-[min(90vw,640px)] px-6 text-center">
         {/* Brand Display Header */}
@@ -132,7 +132,7 @@ export const Preloader = () => {
           <span className="tracking-[0.2em] text-white/60">
             Crafting Digital Experiences
           </span>
-          <div className="font-semibold text-blue-400">
+          <div className="font-semibold text-[#8b98ff]">
             <span ref={counterRef}>0</span>
             <span>%</span>
           </div>
@@ -146,7 +146,7 @@ export const Preloader = () => {
         >
           <div
             ref={fillRef}
-            className="h-full w-0 rounded-full bg-gradient-to-r from-blue-500 via-indigo-400 to-cyan-300 shadow-[0_0_12px_rgba(59,130,246,0.8)] transition-[width] duration-75"
+            className="h-full w-0 rounded-full bg-primary shadow-[0_0_12px_rgba(86,105,255,0.8)] transition-[width] duration-75"
           />
         </div>
       </div>

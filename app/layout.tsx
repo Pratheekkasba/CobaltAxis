@@ -1,15 +1,21 @@
-import { Geist, Geist_Mono, Oxanium } from "next/font/google"
+import { Geist, Geist_Mono, Inter_Tight } from "next/font/google"
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Providers } from "./providers"
+import { WebNav } from "@/components/layout/web-nav"
+import { MobileNav } from "@/components/layout/mobile-nav"
+import { Footer } from "@/components/sections/footer"
 
 import "./globals.css"
 import { cn } from "@/lib/utils"
 
-const oxaniumHeading = Oxanium({
+// Display face: neutral grotesque carrying the big headlines (w500, tight
+// leading, -2% tracking at section scale). Geist stays for body copy and
+// Geist Mono is the "data voice" — tickers, stats, labels.
+const displayFont = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-display",
 })
 
 const fontSans = Geist({
@@ -79,9 +85,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       className={cn(
         "antialiased",
         fontSans.variable,
-        "font-mono",
+        "font-sans",
         geistMono.variable,
-        oxaniumHeading.variable
+        displayFont.variable
       )}
     >
       <body>
@@ -94,11 +100,26 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <noscript
           dangerouslySetInnerHTML={{
             __html: `<style>
-              .hero-top, .hero-sub, .hero-scroll, .hero-stat, .hero-marquee, .hero-mask, .hero-line { opacity: 1 !important; }
+              .hero-fx, .hero-word { opacity: 1 !important; }
             </style>`,
           }}
         />
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* Global chrome: nav outside the scaling container so the project
+              drawer can shrink the page underneath it; footer on every route. */}
+          <WebNav />
+          <MobileNav />
+          <main
+            id="top"
+            data-scale-container
+            className="mx-auto min-h-screen max-w-[1380px] px-6 pt-24 pb-12 md:px-12 md:pt-28 md:pb-20"
+          >
+            {children}
+          </main>
+          {/* Full-bleed footer (sketchbook paper spans the viewport edge to
+              edge), outside the scaling container but on every route. */}
+          <Footer />
+        </Providers>
         <Analytics />
         <SpeedInsights />
       </body>

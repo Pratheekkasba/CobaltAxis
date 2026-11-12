@@ -1,49 +1,36 @@
-import { WebNav } from "@/components/layout/web-nav"
-import { MobileNav } from "@/components/layout/mobile-nav"
 import { Hero } from "@/components/sections/hero"
-import { BigIdea } from "@/components/sections/big-idea"
-import { Services } from "@/components/sections/services"
-import { Process } from "@/components/sections/process"
-import { Projects2 } from "@/components/sections/projects2"
+import { Ecosystem } from "@/components/sections/ecosystem"
+import { Capabilities } from "@/components/sections/capabilities"
+import { Approach } from "@/components/sections/approach"
 import { About } from "@/components/sections/about"
 import { ContactCTA } from "@/components/sections/contact-cta"
-import { Footer } from "@/components/sections/footer"
+import Integrations from "@/components/ui/integrations-4-2"
 
 const Home = () => {
   return (
     <>
-      <WebNav />
-      <MobileNav />
+      {/* Section 01: Hero */}
+      <Hero />
 
-      <main
-        id="top"
-        data-scale-container
-        className="mx-auto min-h-screen max-w-[1380px] px-6 pt-24 pb-12 md:px-12 md:pt-28 md:pb-20"
-      >
-        {/* Section 01: Hero */}
-        <Hero />
+      {/* Section 02: Intelligent engineering ecosystem */}
+      <Ecosystem />
 
-        {/* Section 02: The Big Idea */}
-        <BigIdea />
+      {/* Section 03: Capabilities (Editorial feature showcases) */}
+      <Capabilities />
 
-        {/* Section 03: What We Do (Serpentine orbital journey) */}
-        <Services />
+      {/* Section 04: Our Approach (Convergence diagram) */}
+      <Approach />
 
-        {/* Section 04: How We Think (Engineering methodology) */}
-        <Process />
+      {/* Section 05: Who We Are (Editorial statement) */}
+      <About />
 
-        {/* Section 05: Projects (Interactive list & preview showcase) */}
-        <Projects2 />
+      {/* Integrations */}
+      <section id="integrations" className="mb-28 overflow-x-clip md:mb-36">
+        <Integrations />
+      </section>
 
-        {/* Section 06: Who We Are (Studio manifesto & values) */}
-        <About />
-
-        {/* Section 07: Start a Conversation */}
-        <ContactCTA />
-
-        {/* Section 08: Footer */}
-        <Footer />
-      </main>
+      {/* Section 06: Start a Conversation */}
+      <ContactCTA />
     </>
   )
 }

@@ -1,17 +1,14 @@
-// Shared navigation targets for Cobalt Axis
+// Shared navigation targets for Cobalt Axis. The site is multi-page now:
+// every item is a real route, and the active one is highlighted via pathname.
 export type NavItem = {
   label: string
   href: string
 }
 
 export const navItems: NavItem[] = [
-  { label: "Idea", href: "#idea" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ]
-
-// Section ids the scroll-spy watches (stable module-level reference).
-export const sectionIds = navItems.map((item) => item.href.slice(1))

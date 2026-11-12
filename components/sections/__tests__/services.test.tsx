@@ -7,15 +7,15 @@ import {
 } from "@/test/integration"
 import { Services } from "../services"
 
-// Services renders a desktop (snake) and a mobile (rail) copy of every step, so
-// step text is always duplicated in the DOM — use `getAllByText`.
+// Services renders a sticky pitch and one card per discipline — each step
+// appears once in the DOM.
 describe("Services", () => {
   it("renders the section heading", () => {
     renderWithProviders(<Services />)
 
-    expect(screen.getByText("(Process)")).toBeInTheDocument()
+    expect(screen.getByText("What we do")).toBeInTheDocument()
     expect(
-      screen.getByRole("heading", { name: "What we do" })
+      screen.getByRole("heading", { name: "Six disciplines, one team." })
     ).toBeInTheDocument()
   })
 

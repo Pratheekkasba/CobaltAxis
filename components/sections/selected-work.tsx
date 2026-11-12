@@ -44,7 +44,7 @@ export const SelectedWork = () => {
             <span className="size-1.5 rounded-full bg-[#0052FF] dark:bg-[#3b82f6]" />
             06 // SELECTED WORK
           </div>
-          <h2 className="mt-4 text-3xl font-black tracking-tighter uppercase sm:text-5xl md:text-6xl font-[family-name:var(--font-heading)]">
+          <h2 className="mt-4 text-3xl font-black tracking-tighter uppercase sm:text-5xl md:text-6xl font-[family-name:var(--font-display)]">
             Verified Builds.
           </h2>
         </div>

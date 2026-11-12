@@ -117,7 +117,7 @@ export default function CTAWithVerticalMarquee() {
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed animate-fade-in-up [animation-delay:400ms]">
               Pick one workflow. Dali Agents builds a fixed-scope agent against
-              an acceptance test agreed upfront. It works - or you don't pay.
+              an acceptance test agreed upfront. It works - or you don&apos;t pay.
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-in-up [animation-delay:600ms]">
               <button className="group relative px-6 py-3 bg-foreground text-background rounded-md font-medium overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg">

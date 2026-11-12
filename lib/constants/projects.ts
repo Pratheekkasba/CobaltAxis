@@ -7,6 +7,8 @@ export type ProjectResult = { value: string; label: string }
 
 export type Project = {
   id: string
+  /** URL segment for the case-study page: /work/[slug]. */
+  slug: string
   title: string
   category: string
   year: number
@@ -43,6 +45,7 @@ const baseSections = (
 export const projects: Project[] = [
   {
     id: "clns",
+    slug: "clns",
     title: "CLNS",
     category: "LegalTech",
     year: 2026,
@@ -77,6 +80,7 @@ export const projects: Project[] = [
   },
   {
     id: "orbit",
+    slug: "orbit-commerce",
     title: "Orbit Commerce",
     category: "E-Commerce",
     year: 2025,
@@ -98,6 +102,7 @@ export const projects: Project[] = [
   },
   {
     id: "halo",
+    slug: "halo-health",
     title: "Halo Health",
     category: "Product Design",
     year: 2024,
@@ -119,6 +124,7 @@ export const projects: Project[] = [
   },
   {
     id: "vertex",
+    slug: "vertex-studio",
     title: "Vertex Studio",
     category: "Branding",
     year: 2025,
@@ -140,6 +146,7 @@ export const projects: Project[] = [
   },
   {
     id: "flux",
+    slug: "flux-labs",
     title: "Flux Labs",
     category: "Web Platform",
     year: 2024,
@@ -164,6 +171,7 @@ export const projects: Project[] = [
 // The Case Study section's featured project.
 export const featuredProject: Project = {
   id: "nova",
+  slug: "nova-finance",
   title: "Nova Finance",
   category: "Fintech · Rebrand",
   year: 2025,
@@ -196,3 +204,7 @@ export const featuredProject: Project = {
     { value: "12 wks", label: "Concept to launch" },
   ],
 }
+
+// Everything linkable from the Work page and case-study routes: the flagship
+// first, then the rest. Home uses `projects` for its compact highlight reel.
+export const allProjects: Project[] = [featuredProject, ...projects]

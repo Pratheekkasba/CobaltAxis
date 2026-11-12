@@ -14,7 +14,7 @@ describe("Projects2", () => {
   it("renders the section heading", () => {
     renderWithProviders(<Projects2 />)
 
-    expect(screen.getByText("(Selected work)")).toBeInTheDocument()
+    expect(screen.getByText("Selected work")).toBeInTheDocument()
     expect(
       screen.getByRole("heading", { name: "Projects" })
     ).toBeInTheDocument()

@@ -1,11 +1,20 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
-import gsap from "gsap"
-import { ArrowUp, ArrowUpRight } from "lucide-react"
-import { scrollToSection } from "@/components/layout/scroll-to-section"
+import { useLayoutEffect, useRef, useState } from "react"
 import { CobaltAxisLogo } from "@/components/ui/logo"
+import DoodleCrewFooter, {
+  type CrewMember,
+  type FooterAction,
+  type FooterColumn,
+} from "@/components/ui/doodle-crew-footer"
+import { EMAIL, EMAIL_HREF, PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/constants/contact"
+
+const exploreLinks = [
+  { label: "Services", href: "/#capabilities" },
+  { label: "Approach", href: "/#approach" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+]
 
 const socials = [
   {
@@ -16,110 +25,74 @@ const socials = [
   { label: "LinkedIn", href: "https://linkedin.com/company/cobaltaxis" },
 ]
 
+const columns: FooterColumn[] = [
+  { title: "Explore", links: exploreLinks },
+  {
+    title: "Talk to us",
+    links: [
+      { label: EMAIL, href: EMAIL_HREF },
+      { label: PHONE_DISPLAY, href: WHATSAPP_URL },
+    ],
+  },
+  { title: "Follow", links: socials },
+]
+
+const actions: FooterAction[] = [
+  { label: "Start your project", href: "/contact", icon: "bolt", variant: "solid" },
+  { label: "See the work", href: "/#capabilities", icon: "sparkle", variant: "outline" },
+]
+
+// A crew member per letter of COBALT — the whole studio in one word.
+const crew: CrewMember[] = [
+  { kind: "yeti", letter: 0, seat: "front", offset: -0.32, name: "Bruno", says: "I carry beams. You carry bookings." },
+  { kind: "bird", letter: 1, seat: "top", offset: 0.02, name: "Pip", says: "Cheep leads. Booked solid." },
+  { kind: "mushroom", letter: 2, seat: "front", offset: 0.12, scale: 0.95, name: "Morel", says: "Fun guy. Fungible? Never." },
+  { kind: "kid", letter: 3, seat: "top", offset: -0.05, name: "Juno", says: "Best seat. Top result." },
+  { kind: "ghost", letter: 4, seat: "behind", offset: 0, name: "Boo", says: "Boo! …your competitors." },
+  { kind: "cat", letter: 5, seat: "front", offset: 0.42, flip: true, name: "Patch", says: "Nice cursor. Nicer website." },
+]
+
+// next/font generates hashed family names, so "Inter Tight" won't resolve by
+// name for the canvas measurement. A hidden probe reads the real computed
+// family off --font-display at mount; the component re-measures once fonts land.
+const DISPLAY_FALLBACK = '"Inter Tight", Inter, "Helvetica Neue", Arial, sans-serif'
+
 export const Footer = () => {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const magnetRef = useRef<HTMLAnchorElement>(null)
+  const probeRef = useRef<HTMLSpanElement>(null)
+  const [displayFamily, setDisplayFamily] = useState(DISPLAY_FALLBACK)
   const year = new Date().getFullYear()
 
-  useEffect(() => {
-    const wrap = wrapRef.current
-    const magnet = magnetRef.current
-    if (!wrap || !magnet) return
-
-    const mm = gsap.matchMedia()
-    // Magnetic pull — desktop pointers only, and never when motion is reduced.
-    mm.add(
-      "(pointer: fine) and (prefers-reduced-motion: no-preference)",
-      () => {
-        const xTo = gsap.quickTo(magnet, "x", { duration: 0.5, ease: "power3" })
-        const yTo = gsap.quickTo(magnet, "y", { duration: 0.5, ease: "power3" })
-
-        const onMove = (e: MouseEvent) => {
-          const rect = magnet.getBoundingClientRect()
-          const relX = e.clientX - (rect.left + rect.width / 2)
-          const relY = e.clientY - (rect.top + rect.height / 2)
-          xTo(relX * 0.35)
-          yTo(relY * 0.35)
-        }
-        const onLeave = () => {
-          xTo(0)
-          yTo(0)
-        }
-
-        wrap.addEventListener("mousemove", onMove)
-        wrap.addEventListener("mouseleave", onLeave)
-        return () => {
-          wrap.removeEventListener("mousemove", onMove)
-          wrap.removeEventListener("mouseleave", onLeave)
-        }
-      }
-    )
-
-    return () => mm.revert()
+  useLayoutEffect(() => {
+    const fam = probeRef.current ? getComputedStyle(probeRef.current).fontFamily : ""
+    if (fam && !fam.includes("var(")) setDisplayFamily(fam)
   }, [])
 
   return (
-    <footer
-      className="mt-32 border-t border-border pt-16 md:pt-20"
-    >
-      <div className="md:flex md:items-center md:justify-between">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mt-8 text-5xl leading-[0.95] font-black tracking-tighter uppercase md:text-8xl"
-        >
-          Got a project?
-          <br />
-          <span className="text-primary">Let&apos;s talk.</span>
-        </motion.h2>
-
-        {/* Magnetic Email CTA */}
-        <div ref={wrapRef} className="mt-12 flex w-fit shrink-0 p-6">
-          <a
-            ref={magnetRef}
-            href="mailto:office@cobaltaxis.in"
-            className="group inline-flex items-center gap-3 rounded-full border border-border px-8 py-5 text-xl font-medium transition-colors duration-300 hover:bg-foreground hover:text-background md:text-3xl lowercase font-mono"
-          >
-            office@cobaltaxis.in
-            <ArrowUpRight className="size-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:size-8" />
-          </a>
-        </div>
-      </div>
-
-      {/* Footer bar */}
-      <div className="mt-24 flex flex-col gap-6 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-6">
-          <CobaltAxisLogo size="sm" />
-          <div className="flex gap-6">
-            {socials.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="tracking-widest uppercase transition-colors hover:text-foreground"
-              >
-                {social.label}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <span className="order-last md:order-0">
-          © {year} Cobalt Axis. All rights reserved.
-        </span>
-
-        <a
-          href="#top"
-          onClick={(e) => scrollToSection(e, "#top")}
-          className="group flex items-center gap-2 tracking-widest uppercase transition-colors hover:text-foreground"
-        >
-          Back to top
-          <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-1" />
-        </a>
-      </div>
-    </footer>
+    <div style={{ "--dcf-body": "var(--font-sans)" } as React.CSSProperties}>
+      <span
+        ref={probeRef}
+        aria-hidden="true"
+        style={{ position: "absolute", width: 0, height: 0, overflow: "hidden", fontFamily: "var(--font-display)" }}
+      />
+      <DoodleCrewFooter
+        wordmark="COBALT"
+        brand="Cobalt Axis"
+        brandLogo={<CobaltAxisLogo size="md" />}
+        blurb="AI systems, autonomous workflows and digital products. Plain talk, sharp engineering, built for what comes next."
+        statusBadge="Available for new projects"
+        tagline="We engineer intelligence that moves businesses forward."
+        columns={columns}
+        actions={actions}
+        copyright={`© ${year} Cobalt Axis. Hand-made builds.`}
+        legal={[]}
+        socials={[]}
+        crew={crew}
+        doodleCount={14}
+        palette={{ accent: "var(--primary)" }}
+        fontFamily={displayFamily}
+        serifFamily="var(--font-sans)"
+        height="740px"
+      />
+    </div>
   )
 }

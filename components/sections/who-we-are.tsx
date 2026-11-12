@@ -13,7 +13,7 @@ export const WhoWeAre = () => {
             07 // WHO WE ARE
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase font-[family-name:var(--font-heading)]">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase font-[family-name:var(--font-display)]">
             People Behind The Code.
           </h2>
 

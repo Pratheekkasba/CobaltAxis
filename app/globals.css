@@ -2,80 +2,122 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Cobalt Axis design tokens — "Bright product" direction.
+ * White canvas, navy ink (#161D3A), one loud cobalt accent (#5669FF),
+ * green/red strictly semantic (growth/loss data).
+ * Reference logic: groww.in's two-color discipline, adapted to a studio.
+ */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.153 0.006 107.1);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.153 0.006 107.1);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.153 0.006 107.1);
-    --primary: oklch(0.527 0.154 150.069);
-    --primary-foreground: oklch(0.982 0.018 155.826);
-    --secondary: oklch(0.967 0.001 286.375);
-    --secondary-foreground: oklch(0.21 0.006 285.885);
-    --muted: oklch(0.966 0.005 106.5);
-    --muted-foreground: oklch(0.58 0.031 107.3);
-    --accent: oklch(0.966 0.005 106.5);
-    --accent-foreground: oklch(0.228 0.013 107.4);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.93 0.007 106.5);
-    --input: oklch(0.93 0.007 106.5);
-    --ring: oklch(0.737 0.021 106.9);
-    --chart-1: oklch(0.879 0.169 91.605);
-    --chart-2: oklch(0.769 0.188 70.08);
-    --chart-3: oklch(0.666 0.179 58.318);
-    --chart-4: oklch(0.555 0.163 48.998);
-    --chart-5: oklch(0.473 0.137 46.201);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.988 0.003 106.5);
-    --sidebar-foreground: oklch(0.153 0.006 107.1);
-    --sidebar-primary: oklch(0.627 0.194 149.214);
-    --sidebar-primary-foreground: oklch(0.982 0.018 155.826);
-    --sidebar-accent: oklch(0.966 0.005 106.5);
-    --sidebar-accent-foreground: oklch(0.228 0.013 107.4);
-    --sidebar-border: oklch(0.93 0.007 106.5);
-    --sidebar-ring: oklch(0.737 0.021 106.9);
+    --background: #ffffff;
+    --foreground: #161d3a;
+    --card: #ffffff;
+    --card-foreground: #161d3a;
+    --popover: #ffffff;
+    --popover-foreground: #161d3a;
+    --primary: #5669ff;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f6f8;
+    --secondary-foreground: #161d3a;
+    --muted: #f5f6f8;
+    --muted-foreground: #5a6474;
+    --accent: #eef1ff;
+    --accent-foreground: #3547e6;
+    --destructive: #ff5e3b;
+    --border: #e7e9f0;
+    --input: #e7e9f0;
+    --ring: #5669ff;
+    --chart-1: #5669ff;
+    --chart-2: #04b488;
+    --chart-3: #ff5e3b;
+    --chart-4: #161d3a;
+    --chart-5: #989ea0;
+    --radius: 1.375rem;
+    --sidebar: #f5f6f8;
+    --sidebar-foreground: #161d3a;
+    --sidebar-primary: #5669ff;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #eef1ff;
+    --sidebar-accent-foreground: #161d3a;
+    --sidebar-border: #e7e9f0;
+    --sidebar-ring: #5669ff;
+
+    /* Semantic data colors (kept out of shadcn's vocabulary on purpose:
+       green/red mean "up/down", never "brand"). */
+    --up: #04b488;
+    --up-tint: #e9faf3;
+    --down: #ff5e3b;
+
+    /* Hero city palette. Structural parts read these tokens so the diorama
+       can turn to dusk with the theme; signage keeps a fixed navy ink. */
+    --city-ink: #161d3a;
+    --city-face-right: #f3f4f9;
+    --city-face-left: #e9ecff;
+    --city-glass: #dfe6ff;
+    --city-road: #c3cae6;
+    --city-platform: #ffffff;
+    --city-shadow: #161d3a;
+    --city-glow: rgba(86, 105, 255, 0.22);
+
+    /* Dark chapter — used only where the story earns it (showpiece,
+       preloader). Not a site-wide theme. */
+    --chapter: #060809;
+    --chapter-panel: #151819;
+    --chapter-border: #2e2e2e;
+    --chapter-foreground: #f2f5f7;
+    --chapter-muted: #989ea0;
 }
 
 .dark {
-    --background: oklch(0.153 0.006 107.1);
-    --foreground: oklch(0.988 0.003 106.5);
-    --card: oklch(0.228 0.013 107.4);
-    --card-foreground: oklch(0.988 0.003 106.5);
-    --popover: oklch(0.228 0.013 107.4);
-    --popover-foreground: oklch(0.988 0.003 106.5);
-    --primary: oklch(0.448 0.119 151.328);
-    --primary-foreground: oklch(0.982 0.018 155.826);
-    --secondary: oklch(0.274 0.006 286.033);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.286 0.016 107.4);
-    --muted-foreground: oklch(0.737 0.021 106.9);
-    --accent: oklch(0.286 0.016 107.4);
-    --accent-foreground: oklch(0.988 0.003 106.5);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.58 0.031 107.3);
-    --chart-1: oklch(0.879 0.169 91.605);
-    --chart-2: oklch(0.769 0.188 70.08);
-    --chart-3: oklch(0.666 0.179 58.318);
-    --chart-4: oklch(0.555 0.163 48.998);
-    --chart-5: oklch(0.473 0.137 46.201);
-    --sidebar: oklch(0.228 0.013 107.4);
-    --sidebar-foreground: oklch(0.988 0.003 106.5);
-    --sidebar-primary: oklch(0.723 0.219 149.579);
-    --sidebar-primary-foreground: oklch(0.982 0.018 155.826);
-    --sidebar-accent: oklch(0.286 0.016 107.4);
-    --sidebar-accent-foreground: oklch(0.988 0.003 106.5);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.58 0.031 107.3);
+    --background: #0A0E1A;
+    --foreground: #F1F5F9;
+    --card: #0F1524;
+    --card-foreground: #F1F5F9;
+    --popover: #0F1524;
+    --popover-foreground: #F1F5F9;
+    --primary: #6B7DFF;
+    --primary-foreground: #ffffff;
+    --secondary: #0F1524;
+    --secondary-foreground: #F1F5F9;
+    --muted: #0F1524;
+    --muted-foreground: #94A3B8;
+    --accent: rgba(107, 125, 255, 0.14);
+    --accent-foreground: #5669FF;
+    --destructive: #ff5e3b;
+    --border: rgba(255, 255, 255, 0.08);
+    --input: rgba(255, 255, 255, 0.08);
+    --ring: #6B7DFF;
+    --chart-1: #6B7DFF;
+    --chart-2: #04b488;
+    --chart-3: #ff5e3b;
+    --chart-4: #F1F5F9;
+    --chart-5: #94A3B8;
+    --sidebar: #0F1524;
+    --sidebar-foreground: #F1F5F9;
+    --sidebar-primary: #6B7DFF;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: rgba(107, 125, 255, 0.14);
+    --sidebar-accent-foreground: #F1F5F9;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --sidebar-ring: #6B7DFF;
+
+    /* Dusk city: deep navy masses, lit glass, moonlit structural lines. */
+    --city-ink: #c7d0f2;
+    --city-face-right: #1e2540;
+    --city-face-left: #161c30;
+    --city-glass: #3b4a86;
+    --city-road: #37415f;
+    --city-platform: #101526;
+    --city-shadow: #000000;
+    --city-glow: rgba(107, 125, 255, 0.38);
 }
 
 @theme inline {
+    --font-sans: var(--font-sans);
     --font-mono: var(--font-mono);
-    --font-heading: var(--font-heading);
+    --font-display: var(--font-display);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -107,13 +149,21 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
+    --color-up: var(--up);
+    --color-up-tint: var(--up-tint);
+    --color-down: var(--down);
+    --color-chapter: var(--chapter);
+    --color-chapter-panel: var(--chapter-panel);
+    --color-chapter-border: var(--chapter-border);
+    --color-chapter-foreground: var(--chapter-foreground);
+    --color-chapter-muted: var(--chapter-muted);
+    --radius-sm: calc(var(--radius) * 0.55);
+    --radius-md: calc(var(--radius) * 0.73);
     --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+    --radius-xl: calc(var(--radius) * 1.2);
+    --radius-2xl: calc(var(--radius) * 1.45);
+    --radius-3xl: calc(var(--radius) * 1.75);
+    --radius-4xl: calc(var(--radius) * 2.1);
     --animate-marquee: marquee var(--duration, 30s) linear infinite;
     --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
     --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
@@ -148,20 +198,703 @@
   }
 }
 
+/* Hero intro (ported from the reference's word-blur reveal): each headline
+   word blurs in with a decaying glow, then support elements rise. Pure CSS,
+   driven by the `data-hero-loaded` attribute the hero sets once the preloader
+   hands over — so the sequence starts on cue, never behind the curtain. */
+@keyframes hero-word-in {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Barber pole stripes flow downward inside the pole's clip. */
+@keyframes barber-flow {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-18px);
+  }
+}
+.barber-flow {
+  animation: barber-flow 1.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .barber-flow {
+    animation: none;
+  }
+}
+
+/* Pulsing ring for the map pin (SVG shapes need fill-box transforms). */
+@keyframes svg-ping {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.8;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.svg-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: svg-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .svg-ping {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Hero sky: a full-bleed tinted backdrop behind the hero content. It bleeds
+   upward behind the fixed nav and fades into the page before the stats. */
+.hero-sky {
+  background:
+    radial-gradient(
+      120% 85% at 50% 0%,
+      var(--accent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, transparent 0%, var(--background) 88%),
+    var(--secondary);
+}
+.dark .hero-sky {
+  background:
+    radial-gradient(
+      120% 85% at 50% 0%,
+      color-mix(in srgb, var(--primary) 12%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, transparent 0%, var(--background) 88%),
+    #0d1019;
+}
+
+/* Film grain over the sky: a whisper of print texture that kills gradient
+   banding. Pointer-events off and hidden from assistive tech at the source. */
+.film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+.dark .film-grain {
+  opacity: 0.06;
+  mix-blend-mode: screen;
+}
+
+/* Soft cobalt sun behind the city, anchoring the diorama to the sky. */
+.hero-city-glow {
+  position: absolute;
+  inset-inline: 8%;
+  top: 6%;
+  height: 72%;
+  background: radial-gradient(
+    closest-side at 50% 45%,
+    var(--city-glow) 0%,
+    transparent 72%
+  );
+  filter: blur(26px);
+  pointer-events: none;
+}
+
+/* Cursor spotlight over the city — desktop pointers only. The hero writes
+   --mx/--my from the pointer position; opacity is toggled on enter/leave. */
+.hero-city-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 40%),
+    color-mix(in srgb, var(--primary) 16%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+/* Slim scroll cue at the hero's close; the hero fades it after first scroll. */
+.scroll-cue-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 30px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent, var(--primary));
+}
+.scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 9px;
+  background: var(--foreground);
+  animation: scroll-cue 1.9s ease-in-out infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(32px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-line::after {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hero ambience
+   A barely-there cobalt wash plus a handful of drifting marks in the margins.
+   Only transform/opacity animate, so the hero stays cheap to paint. Everything
+   is pointer-events-none at the source, and the marks sit outside the measured
+   text column on every breakpoint.
+--------------------------------------------------------------------------- */
+.hero-ambient-glow {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: min(880px, 78vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--primary) 9%, transparent) 0%,
+    transparent 72%
+  );
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.dark .hero-ambient-glow {
+  opacity: 0.3;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: var(--o-min, 0.2);
+  }
+  50% {
+    transform: translate3d(var(--dx, 4px), var(--dy, -8px), 0);
+    opacity: var(--o-max, 0.45);
+  }
+}
+
+.hero-particle {
+  animation: hero-float var(--dur, 14s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+@keyframes hero-dot-pulse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.92);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(0, -4px, 0) scale(1.08);
+    opacity: 0.9;
+  }
+}
+
+.hero-particle-dot {
+  animation: hero-dot-pulse var(--dur, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  box-shadow: 0 0 10px 2px
+    color-mix(in srgb, var(--primary) 30%, transparent);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-particle,
+  .hero-particle-dot {
+    animation: none;
+  }
+}
+
+/* CTA feedback: a restrained lift, plus a soft cobalt halo on the primary
+   action only. Removed entirely when reduced motion is requested. */
+.hero-cta {
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+}
+
+.hero-cta:active {
+  transform: translateY(0);
+}
+
+.hero-cta-primary:hover {
+  box-shadow: 0 12px 32px -14px
+    color-mix(in srgb, var(--primary) 65%, transparent);
+}
+
+.hero-cta-secondary:hover {
+  box-shadow: 0 10px 26px -18px rgb(22 29 58 / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta {
+    transition: none;
+  }
+  .hero-cta:hover,
+  .hero-cta:active {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Ecosystem — Section 02
+   The supplied isometric artwork sits at the centre of a six-label map. The
+   connector nodes, float and reveal are all CSS; the marquee is duplicated in
+   markup and translated by exactly half the track for a seamless loop.
+--------------------------------------------------------------------------- */
+.ecosystem-halo {
+  position: absolute;
+  inset: 6% 2%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--primary) 8%, transparent) 0%,
+    transparent 72%
+  );
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.dark .ecosystem-halo {
+  opacity: 0.55;
+}
+
+@keyframes ecosystem-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.ecosystem-float {
+  animation: ecosystem-float 13s ease-in-out infinite;
+  animation-delay: -4s;
+  will-change: transform;
+}
+
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "art"
+    "l1"
+    "l2"
+    "l3"
+    "r1"
+    "r2"
+    "r3";
+  gap: 1rem;
+}
+
+.eco-art {
+  grid-area: art;
+}
+.eco-l1 {
+  grid-area: l1;
+}
+.eco-l2 {
+  grid-area: l2;
+}
+.eco-l3 {
+  grid-area: l3;
+}
+.eco-r1 {
+  grid-area: r1;
+}
+.eco-r2 {
+  grid-area: r2;
+}
+.eco-r3 {
+  grid-area: r3;
+}
+
+.ecosystem-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+/* Restrained hover feedback: the index brightens to full cobalt, the title
+   warms toward the accent ink, and the mobile hairline warms slightly.
+   Colour only — no movement. */
+.ecosystem-label:hover {
+  border-top-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+}
+
+.ecosystem-label-num,
+.ecosystem-label-title {
+  transition: color 0.3s ease;
+}
+
+.ecosystem-label:hover .ecosystem-label-num {
+  color: var(--primary);
+}
+
+.ecosystem-label:hover .ecosystem-label-title {
+  color: var(--accent-foreground);
+}
+
+.ecosystem-connector {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "art art"
+      "l1 r1"
+      "l2 r2"
+      "l3 r3";
+    gap: 1.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ecosystem-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 2.5fr)
+      minmax(0, 1fr);
+    grid-template-areas:
+      "l1 art r1"
+      "l2 art r2"
+      "l3 art r3";
+    column-gap: 2.5rem;
+    row-gap: 1rem;
+    align-items: center;
+  }
+
+  .ecosystem-label {
+    border-top: 0;
+    padding-block: 0;
+  }
+
+  .ecosystem-label-left {
+    align-items: flex-end;
+    text-align: right;
+    padding-right: 2.25rem;
+  }
+
+  .ecosystem-label-right {
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 2.25rem;
+  }
+
+  .ecosystem-connector {
+    position: absolute;
+    top: 1.45rem;
+    display: flex;
+    align-items: center;
+    /* Long enough to cross the 2.5rem column gap: the line leaves the label's
+       own padding zone and reaches toward the artwork's column edge, so the
+       six services read as plugging into the hub rather than floating. */
+    width: 4rem;
+    height: 1px;
+    /* The hairline carries the resting strength; opacity lets hover brighten
+       line and node together, smoothly, without repainting the gradient. */
+    opacity: 0.65;
+    transition: opacity 0.3s ease;
+  }
+
+  .ecosystem-label:hover .ecosystem-connector {
+    opacity: 1;
+  }
+
+  .ecosystem-label-left .ecosystem-connector {
+    right: -2.25rem;
+    justify-content: flex-end;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--primary) 70%, transparent)
+    );
+  }
+
+  .ecosystem-label-right .ecosystem-connector {
+    left: -2.25rem;
+    justify-content: flex-start;
+    background: linear-gradient(
+      to left,
+      transparent,
+      color-mix(in srgb, var(--primary) 70%, transparent)
+    );
+  }
+
+  .ecosystem-connector::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    flex: none;
+    border-radius: 9999px;
+    background: var(--primary);
+    box-shadow: 0 0 10px 2px
+      color-mix(in srgb, var(--primary) 50%, transparent);
+  }
+}
+
+@keyframes ecosystem-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Edge dissolve: items enter and exit gracefully instead of hitting the
+   frame. It lives on an inner wrapper so the band's own borders stay solid. */
+.ecosystem-marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.ecosystem-marquee-track {
+  animation: ecosystem-marquee 45s linear infinite;
+  will-change: transform;
+}
+
+.ecosystem-marquee:hover .ecosystem-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecosystem-float {
+    animation: none;
+  }
+  /* Static fallback: a centered capability index. The edge dissolve is removed
+     (nothing scrolls past the frame, so nothing gets clipped), the visible
+     group centres itself — a single line from lg up, wrapped rows below — and
+     the loop copy is hidden. No scrollbar, no motion. */
+  .ecosystem-marquee-fade {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .ecosystem-marquee-track {
+    animation: none;
+    will-change: auto;
+    width: 100%;
+  }
+  .ecosystem-marquee-track ul {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+  .ecosystem-marquee-track ul[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 1024px) {
+  /* The six terms fit one line from lg up (verified against the mono advance
+     width), so the static strip stays a single architectural row on desktop. */
+  .ecosystem-marquee-track ul:not([aria-hidden="true"]) {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ============ Section 03 — capabilities ============ */
+
+/* Cobalt indicator dot used by the pillar kickers. */
+.capability-dot {
+  box-shadow: 0 0 10px 2px
+    color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+/* 2x2 architectural spec matrix. Hairline rules are drawn once per edge:
+   mobile-first the cells stack (horizontal rules only), and from sm up the
+   even cells carry the vertical rule while the top rule is suppressed on the
+   first row. The container supplies the outer frame. */
+.capability-matrix {
+  border: 1px solid var(--border);
+}
+
+.capability-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.9rem 1rem;
+  border-left: 0;
+  border-top: 1px solid var(--border);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.capability-cell:first-child {
+  border-top: 0;
+}
+
+@media (min-width: 640px) {
+  .capability-cell:nth-child(2n) {
+    border-left: 1px solid var(--border);
+  }
+  .capability-cell:nth-child(-n + 2) {
+    border-top: 0;
+  }
+}
+
+/* Restrained cell highlight: a cobalt wash, its own hairlines warming, and a
+   1px inset ring so the highlight reads as one crisp perimeter. */
+.capability-cell:hover {
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+  background-color: color-mix(in srgb, var(--primary) 3%, transparent);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.capability-cell-num {
+  flex: none;
+  transition: color 0.3s ease;
+}
+
+.capability-cell:hover .capability-cell-num {
+  color: var(--primary);
+}
+
+/* Slow float on the artwork while its row is hovered. */
+.capability-float {
+  transition: transform 0.5s ease-out;
+}
+
+.capabilities-row:hover .capability-float {
+  transform: translateY(-2px) scale(1.01);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-float {
+    transition: none;
+  }
+  .capabilities-row:hover .capability-float {
+    transform: none;
+  }
+}
+
+@keyframes ecosystem-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ecosystem-reveal,
+    .section-reveal {
+      animation: ecosystem-rise both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 55%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Parked until the preloader hands over (attribute set by the hero). */
+  [data-hero]:not([data-hero-loaded="true"]) .hero-fx {
+    opacity: 0;
+  }
+  [data-hero-loaded="true"] .hero-word {
+    display: inline-block;
+    animation: hero-word-in 1.1s ease forwards;
+    animation-delay: calc(var(--wi, 0) * 0.12s + 0.1s);
+  }
+  [data-hero-loaded="true"] .hero-fx {
+    animation: hero-fade-up 0.7s ease both;
+    animation-delay: var(--d, 0s);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
     }
   body {
     @apply bg-background text-foreground;
+    overflow-x: clip;
     }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
     }
   html {
-    font-size: 90%;
-    @apply font-mono;
+    @apply font-sans;
     scroll-behavior: auto;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
   /* Anchor jumps land below the fixed nav instead of behind it. */
   [id] {
@@ -205,26 +938,277 @@ body[data-drawer-open] [data-scale-container] {
     transition: none;
   }
 }
-/* Pre-animation state for the GSAP hero intro.
-   The page is prerendered, so without this the browser paints the hero at its
-   final position before JS boots, then GSAP snaps it to its start state — a
-   visible flash. Painting the start state in CSS makes the first paint correct.
 
-   Rule: this block only ever sets `opacity`. Every transform belongs to GSAP
-   alone (see sections/hero.tsx). An earlier version parked .hero-line-inner
-   with a CSS translateY, which spilled the headline over the divider the moment
-   the timeline flipped .hero-mask to overflow:visible. Opacity can't mispose
-   anything — worst case something stays invisible.
+/* ============ Section 04 — our approach ============ */
 
-   Gated on `no-preference` to mirror the hero's gsap.matchMedia gate: those
-   users' timeline never runs, so they must never get the hidden state. The
-   no-JS escape hatch is the <noscript> block in app/layout.tsx. */
-.hero-top,
-.hero-sub,
-.hero-scroll,
-.hero-stat,
-.hero-marquee,
-.hero-mask,
-.hero-line {
-  opacity: 0;
+/* Approach diagram container: rounded hairline frame with a literal light
+   artboard and an ultra-subtle radial-faded technical square micro-grid. */
+.approach-container {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.approach-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 78% 68% at 50% 38%, #000 12%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 68% at 50% 38%, #000 12%, transparent 78%);
+}
+
+/* Giant ultra-low-contrast watermark title spanning the container top. */
+.approach-watermark {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, #0f172a 5%, transparent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Left / right node typography */
+.approach-node-main {
+  color: #0f172a;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.approach-node-accent {
+  color: #5a6474;
+  font-style: italic;
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 500;
+}
+
+/* Cobalt-blue accent for "System" on the right node */
+.approach-node-cobalt {
+  color: #3b5bdb;
+}
+
+/* Center path labels stacked vertically */
+.approach-center-label {
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* Beam animation is JS-driven via requestAnimationFrame + getTotalLength().
+   Only the node pulse rings and reduced-motion static state live here. */
+
+@keyframes approach-node-pulse {
+  0%,
+  100% {
+    transform: scale(0.75);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+.approach-node-pulse {
+  animation: approach-node-pulse 2.4s ease-out infinite;
+}
+
+.approach-node-pulse-delay {
+  animation-delay: 1.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approach-node-pulse {
+    animation: none;
+    opacity: 0.35;
+  }
+}
+
+/* Bottom callout box with corner brackets */
+.approach-callout {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgb(15 23 42 / 0.08);
+  transition: border-color 0.3s ease;
+}
+
+.approach-callout:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+}
+
+.approach-bracket {
+  position: absolute;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border: 0 solid color-mix(in srgb, var(--primary) 60%, transparent);
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+}
+
+.approach-bracket-tl {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.approach-bracket-tr {
+  top: -1px;
+  right: -1px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.approach-bracket-bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.approach-bracket-br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+.approach-callout:hover .approach-bracket {
+  border-color: var(--primary);
+}
+
+.approach-stage {
+  border: 1px solid var(--border);
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.approach-stage:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  background-color: color-mix(in srgb, var(--primary) 4%, transparent);
+}
+
+.approach-stage-num {
+  color: #3b5bdb;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.approach-stage-dot {
+  color: #c7c9d4;
+}
+
+.approach-stage-title {
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.approach-stage-desc {
+  color: #5a6474;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approach-container,
+  .approach-callout,
+  .approach-bracket,
+  .approach-stage {
+    transition: none;
+  }
+}
+
+/* ============ Section 07 — enquiry spec sheet ============ */
+
+.spec-sheet-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.spec-sheet-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 82% 78% at 50% 45%, #000 18%, transparent 86%);
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 45%, #000 18%, transparent 86%);
+}
+
+/* Smooth 200ms theme switch transitions */
+@layer base {
+  body,
+  main,
+  section,
+  footer,
+  nav,
+  article {
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+}
+
+/* Dark-mode architectural overrides */
+.dark .approach-container {
+  border-color: rgba(255, 255, 255, 0.08);
+  background-color: #0F1524;
+}
+
+.dark .approach-container::before,
+.dark .spec-sheet-grid::before {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.dark .approach-watermark {
+  color: rgba(255, 255, 255, 0.04);
+}
+
+.dark .approach-center-label {
+  color: #F1F5F9;
+}
+
+.dark .approach-callout {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .approach-stage-num {
+  color: #6B7DFF;
+}
+
+.dark .approach-stage-title {
+  color: #F1F5F9;
+}
+
+.dark .approach-stage-desc {
+  color: #94A3B8;
+}
+
+/* Footer COBALT illustration panel stays light off-white in dark mode */
+.dark .dcf-stage {
+  background: #F8FAFC;
+  border-radius: 1.5rem;
+  padding: clamp(20px, 3vw, 40px) clamp(16px, 2.5vw, 32px) clamp(12px, 2vw, 24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  --dcf-bg: #F8FAFC;
+  --dcf-ink: #161D3A;
+  --dcf-accent: #5669FF;
 }

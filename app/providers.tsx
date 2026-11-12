@@ -19,9 +19,8 @@ export const Providers = ({ children }: ProvidersProps) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
-        enableSystem={false}
-        disableTransitionOnChange
+        defaultTheme="system"
+        enableSystem
       >
         <SmoothScroll>
           <Preloader />

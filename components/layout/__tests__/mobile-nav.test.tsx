@@ -13,7 +13,7 @@ describe("MobileNav", () => {
   it("renders the logo and a closed menu by default", () => {
     renderWithProviders(<MobileNav />)
 
-    expect(screen.getByText("Agency.")).toBeInTheDocument()
+    expect(screen.getByText("COBALT")).toBeInTheDocument()
     expect(
       screen.getByRole("button", { name: /open menu/i })
     ).toBeInTheDocument()

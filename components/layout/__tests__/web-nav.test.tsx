@@ -12,7 +12,7 @@ describe("WebNav", () => {
   it("renders the logo and a link per nav item", () => {
     renderWithProviders(<WebNav />)
 
-    expect(screen.getByText("Agency.")).toBeInTheDocument()
+    expect(screen.getByText("COBALT")).toBeInTheDocument()
 
     navItems.forEach((item) => {
       expect(screen.getByRole("link", { name: item.label })).toHaveAttribute(
@@ -22,12 +22,12 @@ describe("WebNav", () => {
     })
   })
 
-  it("renders the contact call to action", () => {
+  it("renders the WhatsApp call to action", () => {
     renderWithProviders(<WebNav />)
 
     expect(screen.getByRole("link", { name: /let's talk/i })).toHaveAttribute(
       "href",
-      "#contact"
+      expect.stringContaining("api.whatsapp.com")
     )
   })
 })

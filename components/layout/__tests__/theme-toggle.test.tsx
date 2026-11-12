@@ -12,15 +12,15 @@ describe("ThemeToggle", () => {
     renderWithProviders(<ThemeToggle />)
 
     expect(
-      screen.getByRole("button", { name: /toggle theme/i })
+      screen.getByRole("button", { name: /toggle dark mode/i })
     ).toBeInTheDocument()
   })
 
   it("forwards a custom className", () => {
     renderWithProviders(<ThemeToggle className="test-class" />)
 
-    expect(screen.getByRole("button", { name: /toggle theme/i })).toHaveClass(
-      "test-class"
-    )
+    expect(
+      screen.getByRole("button", { name: /toggle dark mode/i })
+    ).toHaveClass("test-class")
   })
 })

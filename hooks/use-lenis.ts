@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import Lenis from "lenis"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -8,8 +8,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 let lenisInstance: Lenis | null = null
 
 export function useLenis() {
-  const rafRef = useRef<number>(0)
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -40,7 +38,6 @@ export function useLenis() {
       gsap.ticker.remove(updateLenis)
       lenis.destroy()
       lenisInstance = null
-      cancelAnimationFrame(rafRef.current)
     }
   }, [])
 
@@ -53,6 +50,8 @@ export function scrollTo(
 ) {
   if (lenisInstance) {
     lenisInstance.scrollTo(target, options)
+  } else if (target instanceof HTMLElement) {
+    target.scrollIntoView({ behavior: "smooth" })
   }
 }
 
