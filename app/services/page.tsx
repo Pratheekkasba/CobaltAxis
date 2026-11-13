@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Hero } from "@/components/services/hero"
 import { ServicesHero } from "@/components/sections/services-hero"
 import { ServicesModules } from "@/components/sections/services-modules"
 import { Services } from "@/components/sections/services"
@@ -17,6 +18,9 @@ export const metadata: Metadata = {
 const ServicesPage = () => {
   return (
     <div className="mb-8">
+      {/* S00 — The engineered-intelligence hero */}
+      <Hero />
+
       {/* S01 — The promise, plus the proof strip */}
       <ServicesHero />
 

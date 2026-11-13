@@ -59,8 +59,12 @@ export const ServicesHero = () => {
         Cobalt Axis — Services
       </p>
 
-      {/* The promise — muted ink, operative words pulled dark. */}
-      <h1 className="section-reveal mt-6 max-w-4xl text-4xl leading-[1.12] tracking-[-0.025em] font-medium text-muted-foreground font-[family-name:var(--font-display)] md:text-6xl md:leading-[1.06]">
+      {/* The promise — muted ink, operative words pulled dark. Demoted to a
+          paragraph: the new <Hero/> owns the page's single <h1>. */}
+      <p
+        aria-label="Services overview promise"
+        className="section-reveal mt-6 max-w-4xl text-4xl leading-[1.12] tracking-[-0.025em] font-medium text-muted-foreground font-[family-name:var(--font-display)] md:text-6xl md:leading-[1.06]"
+      >
         Our promise is an operation that{" "}
         <span className="font-semibold text-foreground">runs itself</span> —
         the kind of automation you{" "}
@@ -68,7 +72,7 @@ export const ServicesHero = () => {
           measure in hours saved
         </span>
         , not the kind that demos well.
-      </h1>
+      </p>
 
       <p className="section-reveal mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
         Seven engineering modules plugged into one intelligent engine — and

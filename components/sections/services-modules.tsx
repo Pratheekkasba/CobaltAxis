@@ -181,7 +181,10 @@ const satCards = [
 
 export const ServicesModules = () => {
   return (
-    <section id="engine" className="relative mb-24 md:mb-32">
+    <section
+      id="intelligent-engineering"
+      className="relative mb-24 scroll-mt-24 md:mb-32"
+    >
       <div className="section-reveal">
         <SectionHeading
           label="The intelligent engine"

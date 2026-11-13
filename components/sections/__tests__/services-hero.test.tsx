@@ -12,8 +12,10 @@ describe("ServicesHero", () => {
   it("renders the promise statement and meta line", () => {
     renderWithProviders(<ServicesHero />)
 
+    // The promise is a paragraph now — the page's single <h1> lives in the
+    // new <Hero/> above this section.
     expect(
-      screen.getByRole("heading", { level: 1, name: /our promise/i })
+      screen.getByText(/Our promise is an operation that/i)
     ).toBeInTheDocument()
     expect(
       screen.getByText(/07 engine modules · 06 disciplines · 01 senior team/i)

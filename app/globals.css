@@ -1458,15 +1458,70 @@ body[data-drawer-open] [data-scale-container] {
   opacity: 0.85;
 }
 
+/* Isometric grid — vertical + two 30° diagonals, hairline and faint. */
+.iso-grid {
+  --iso-line: color-mix(in srgb, var(--foreground) 5.5%, transparent);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--iso-line) 0 1px,
+      transparent 1px 46px
+    ),
+    repeating-linear-gradient(
+      60deg,
+      var(--iso-line) 0 1px,
+      transparent 1px 46px
+    ),
+    repeating-linear-gradient(
+      120deg,
+      var(--iso-line) 0 1px,
+      transparent 1px 46px
+    );
+}
+
+/* Hero image — slow floating drift (reads as gentle parallax). */
+.sv2-float {
+  animation: sv2-float 7.5s ease-in-out infinite alternate;
+}
+@keyframes sv2-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-12px);
+  }
+}
+
+/* Cyan sonar pulses on the hero illustration's circuit paths. */
+.sv2-ping {
+  animation: sv2-ping 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation-delay: var(--pd, 0s);
+  transform-origin: center;
+}
+@keyframes sv2-ping {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.55;
+  }
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sv2-wave,
   .sv2-bob,
   .sv2-rail,
   .sv2-packet,
-  .sv2-pulse {
+  .sv2-pulse,
+  .sv2-float,
+  .sv2-ping {
     animation: none;
   }
-  .sv2-packet {
+  .sv2-packet,
+  .sv2-ping {
     display: none;
   }
   .sv2-pulse {
