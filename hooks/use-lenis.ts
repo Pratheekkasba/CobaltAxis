@@ -46,7 +46,7 @@ export function useLenis() {
 
 export function scrollTo(
   target: string | number | HTMLElement,
-  options?: { offset?: number; duration?: number }
+  options?: { offset?: number; duration?: number; immediate?: boolean }
 ) {
   if (lenisInstance) {
     lenisInstance.scrollTo(target, options)

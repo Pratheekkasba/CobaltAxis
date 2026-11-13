@@ -70,4 +70,19 @@ describe("HighVelocity", () => {
     expect(screen.getAllByRole("img")).toHaveLength(4)
     expect(container.querySelector("#high-velocity")).not.toBeNull()
   })
+
+  it("carries data-service hooks the bottleneck CTA can highlight", () => {
+    const { container } = renderWithProviders(<HighVelocity />)
+
+    for (const service of [
+      "60fps-web-apps",
+      "high-velocity-ui",
+      "research-prototypes",
+      "maintenance-monitoring",
+    ]) {
+      expect(
+        container.querySelector(`[data-service="${service}"]`)
+      ).not.toBeNull()
+    }
+  })
 })

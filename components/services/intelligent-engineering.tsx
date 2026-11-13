@@ -15,6 +15,7 @@ import { ServiceCard } from "./service-card"
 const systems = [
   {
     index: "01",
+    dataService: "intelligent-systems",
     title: "Intelligent Systems & Decision Engines",
     description:
       "Custom AI decision engines, predictive ML models, and neural processing architectures.",
@@ -30,6 +31,7 @@ const systems = [
   },
   {
     index: "02",
+    dataService: "autonomous-workflows",
     title: "Autonomous Workflows & AI Agents",
     description:
       "End-to-end task automation and multi-agent systems executing complex operations zero-ops.",
@@ -45,6 +47,7 @@ const systems = [
   },
   {
     index: "03",
+    dataService: "applied-ai-rag",
     title: "Applied AI & RAG",
     description:
       "Vector databases and custom RAG architectures that allow AI to search and act on enterprise knowledge.",
@@ -60,6 +63,7 @@ const systems = [
   },
   {
     index: "04",
+    dataService: "cloud-ai-infrastructure",
     title: "Cloud & AI Infrastructure",
     description:
       "Auto-scaling serverless backends designed for extreme compute performance and low latency.",

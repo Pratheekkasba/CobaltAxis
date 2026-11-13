@@ -1529,3 +1529,39 @@ body[data-drawer-open] [data-scale-container] {
   }
 }
 
+/* Dot grid tuned for dark panels (the bottleneck selector's obsidian band). */
+.sv2-dots-dark {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* CTA landing pulse: the bottleneck selector's "See the matching service"
+   fires this on the matching card/row for ~2.5s — cobalt border + a soft
+   ring/glow that breathes twice. Border-color only lands on bordered
+   elements (service cards); rows pick up the ring alone. Gated behind
+   reduced motion. */
+@keyframes sv2-highlight {
+  0%,
+  100% {
+    border-color: #2b54d8;
+    box-shadow:
+      0 0 0 2px rgba(43, 84, 216, 0.28),
+      0 12px 44px -14px rgba(43, 84, 216, 0.45);
+  }
+  50% {
+    border-color: #2b54d8;
+    box-shadow:
+      0 0 0 4px rgba(43, 84, 216, 0.3),
+      0 18px 60px -14px rgba(43, 84, 216, 0.7);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-highlight] {
+    animation: sv2-highlight 1.25s ease-in-out 2;
+  }
+}
+

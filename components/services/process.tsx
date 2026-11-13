@@ -10,6 +10,7 @@ import {
   type Variants,
 } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { sv2Blur } from "@/lib/blur"
 import { Section } from "./section"
 
 /*
@@ -83,6 +84,8 @@ export function Process() {
               src="/images/services/09-art-direction.webp"
               alt="Wide isometric view of the Cobalt Axis campus — the studio floor where the four stages run"
               fill
+              placeholder="blur"
+              blurDataURL={sv2Blur("/images/services/09-art-direction.webp")}
               sizes="(min-width: 1152px) 72rem, 100vw"
               className="object-cover mix-blend-multiply"
             />

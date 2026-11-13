@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { motion, useReducedMotion, type Variants } from "framer-motion"
 import { ArrowDown } from "lucide-react"
+import { sv2Blur } from "@/lib/blur"
 import { scrollTo } from "@/hooks/use-lenis"
 import { Button } from "./button"
 import { Container } from "./container"
@@ -118,6 +119,8 @@ export function Hero() {
                       alt="Isometric illustration of the Cobalt Axis campus — the studio headquarters wired to server racks by glowing cyan circuit paths"
                       fill
                       priority
+                      placeholder="blur"
+                      blurDataURL={sv2Blur("/images/services/01-hero-hq.webp")}
                       sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover mix-blend-multiply"
                     />

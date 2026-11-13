@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { sv2Blur } from "@/lib/blur"
 import { FeatureChip } from "./feature-chip"
 
 /**
@@ -21,6 +22,7 @@ export function ServiceCard({
   icon,
   href,
   chips,
+  dataService,
   className,
 }: {
   /** Mono index label, e.g. "02". */
@@ -32,10 +34,13 @@ export function ServiceCard({
   href?: string
   /** Capability chips rendered under the description. */
   chips?: string[]
+  /** DOM hook for cross-section highlighting (the bottleneck selector's CTA). */
+  dataService?: string
   className?: string
 }) {
   return (
     <article
+      data-service={dataService}
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-cobalt hover:shadow-[0_16px_48px_-16px_rgba(0,240,255,0.35),0_10px_28px_-14px_rgba(43,84,216,0.28)] focus-within:border-cobalt motion-reduce:hover:translate-y-0",
         className,
@@ -47,6 +52,8 @@ export function ServiceCard({
             src={image.src}
             alt={image.alt}
             fill
+            placeholder="blur"
+            blurDataURL={sv2Blur(image.src)}
             sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
+import { sv2Blur } from "@/lib/blur"
 import { Button } from "./button"
 import { Container } from "./container"
 
@@ -65,6 +66,8 @@ export function FinalCTA() {
                   src="/images/services/15-launchpad.webp"
                   alt="Isometric launchpad illustration — a rocket on its pad beside a 'Start Your Engine' billboard"
                   fill
+                  placeholder="blur"
+                  blurDataURL={sv2Blur("/images/services/15-launchpad.webp")}
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover mix-blend-multiply"
                 />

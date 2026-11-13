@@ -71,4 +71,19 @@ describe("IntelligentEngineering", () => {
       container.querySelector("#intelligent-engineering")
     ).not.toBeNull()
   })
+
+  it("carries data-service hooks the bottleneck CTA can highlight", () => {
+    const { container } = renderWithProviders(<IntelligentEngineering />)
+
+    for (const service of [
+      "intelligent-systems",
+      "autonomous-workflows",
+      "applied-ai-rag",
+      "cloud-ai-infrastructure",
+    ]) {
+      expect(
+        container.querySelector(`[data-service="${service}"]`)
+      ).not.toBeNull()
+    }
+  })
 })

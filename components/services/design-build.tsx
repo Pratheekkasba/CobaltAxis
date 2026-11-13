@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { motion, useReducedMotion, type Variants } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { sv2Blur } from "@/lib/blur"
 import { Section } from "./section"
 
 /*
@@ -121,6 +122,8 @@ function ImageStack({
           src={back.src}
           alt={back.alt}
           fill
+          placeholder="blur"
+          blurDataURL={sv2Blur(back.src)}
           sizes="(min-width: 1024px) 40vw, 100vw"
           className="object-cover mix-blend-multiply"
         />
@@ -130,6 +133,8 @@ function ImageStack({
           src={front.src}
           alt={front.alt}
           fill
+          placeholder="blur"
+          blurDataURL={sv2Blur(front.src)}
           sizes="(min-width: 1024px) 32vw, 70vw"
           className="object-cover mix-blend-multiply"
         />

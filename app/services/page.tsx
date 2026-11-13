@@ -3,26 +3,95 @@ import { Hero } from "@/components/services/hero"
 import { IntelligentEngineering } from "@/components/services/intelligent-engineering"
 import { DesignBuild } from "@/components/services/design-build"
 import { HighVelocity } from "@/components/services/high-velocity"
-import { Process } from "@/components/services/process"
 import { FinalCTA } from "@/components/services/final-cta"
-import { ServicesHero } from "@/components/sections/services-hero"
-import { ServicesModules } from "@/components/sections/services-modules"
-import { Services } from "@/components/sections/services"
-import { ServicesGuardrails } from "@/components/sections/services-guardrails"
-import { ServicesProcess } from "@/components/sections/services-process"
-import { ServicesFaq } from "@/components/sections/services-faq"
-import { ServicesCta } from "@/components/sections/services-cta"
-import { CtaBand } from "@/components/sections/cta-band"
+
+const SITE_URL = "https://cobaltaxis.in"
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services — AI Engineering & Automation",
   description:
-    "One intelligent engine, seven modules — applied AI, autonomous workflows, RAG, cloud, 60fps apps — delivered by six design-and-build disciplines and one senior team.",
+    "Autonomous workflows, applied AI & RAG, cloud architectures and 60 FPS web apps — designed, built and maintained end to end by one senior team.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services — AI Engineering & Automation | Cobalt Axis",
+    description:
+      "Autonomous workflows, applied AI & RAG, cloud architectures and 60 FPS web apps — designed, built and maintained end to end by one senior team.",
+    url: "/services",
+    siteName: "Cobalt Axis",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/images/services/01-hero-hq.webp",
+        width: 1600,
+        height: 893,
+        alt: "Isometric illustration of the Cobalt Axis campus wired to server racks by glowing circuit paths",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services — AI Engineering & Automation | Cobalt Axis",
+    description:
+      "Autonomous workflows, applied AI & RAG, cloud architectures and 60 FPS web apps — designed, built and maintained end to end by one senior team.",
+    images: ["/images/services/01-hero-hq.webp"],
+  },
+}
+
+/** Structured data: the studio (Organization) and its services (Service). */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#org`,
+      name: "Cobalt Axis",
+      url: SITE_URL,
+      email: "hello@cobaltaxis.in",
+      logo: `${SITE_URL}/images/services/01-hero-hq.webp`,
+      description:
+        "Senior design-and-build studio engineering AI systems, automation and high-velocity web products.",
+    },
+    {
+      "@type": "Service",
+      "@id": `${SITE_URL}/services#service`,
+      name: "AI Engineering & Product Build Services",
+      serviceType:
+        "AI automation, applied AI, cloud architecture and web engineering",
+      description:
+        "Autonomous workflows, applied AI & RAG, cloud architectures and 60 FPS web apps — designed, built and maintained end to end by one senior team.",
+      provider: { "@id": `${SITE_URL}/#org` },
+      areaServed: "Worldwide",
+      url: `${SITE_URL}/services`,
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Engineering practices",
+        itemListElement: [
+          "Intelligent Systems & Decision Engines",
+          "Autonomous Workflows & AI Agents",
+          "Applied AI & RAG",
+          "Cloud & AI Infrastructure",
+          "60 FPS Web Apps",
+          "High-Velocity UI & Rapid Sprint",
+          "Research Prototypes (R&D)",
+          "Continuous Maintenance & Monitoring",
+        ].map((name) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name },
+        })),
+      },
+    },
+  ],
 }
 
 const ServicesPage = () => {
   return (
     <div className="mb-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* S00 — The engineered-intelligence hero */}
       <Hero />
 
@@ -35,37 +104,8 @@ const ServicesPage = () => {
       {/* S03 — High velocity: the speed-numbers band */}
       <HighVelocity />
 
-      {/* S04 — Process: campus banner + scroll-driven stage timeline */}
-      <Process />
-
-      {/* S05 — Final CTA: start a project / book a call */}
+      {/* S04 — Final CTA: start a project / book a call */}
       <FinalCTA />
-
-      {/* S06 — The promise, plus the proof strip */}
-      <ServicesHero />
-
-      {/* S07 — The intelligent engine deep dive: modules + Figure 1 */}
-      <ServicesModules />
-
-      {/* S08 — Design & build, the six disciplines */}
-      <Services />
-
-      {/* S09 — Guardrails you never have to think about */}
-      <ServicesGuardrails />
-
-      {/* S10 — The cadence: waterfall + stage rail */}
-      <ServicesProcess />
-
-      {/* S11 — The hard questions */}
-      <ServicesFaq />
-
-      {/* S12 — Scoping-call band */}
-      <ServicesCta />
-
-      <CtaBand
-        title="Let's scope your project."
-        sub="A senior partner replies within one working day — with a plan, not a pitch deck."
-      />
     </div>
   )
 }

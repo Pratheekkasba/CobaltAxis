@@ -10,6 +10,7 @@ import {
   type Variants,
 } from "framer-motion"
 import { Container } from "./container"
+import { sv2Blur } from "@/lib/blur"
 
 /*
  * S03 — High Velocity, the speed-numbers band.
@@ -31,9 +32,12 @@ const features: Array<{
   description: string
   image: { src: string; alt: string }
   badge: Badge
+  /** DOM hook for cross-section highlighting (the bottleneck selector's CTA). */
+  service: string
 }> = [
   {
     title: "60 FPS Web Apps",
+    service: "60fps-web-apps",
     description:
       "Ultra-smooth React / Next.js / Three.js frontends built for maximum responsiveness.",
     image: {
@@ -44,6 +48,7 @@ const features: Array<{
   },
   {
     title: "High-Velocity UI & Rapid Sprint",
+    service: "high-velocity-ui",
     description:
       "Design-to-code execution with 48-hour turnarounds on component builds.",
     image: {
@@ -54,6 +59,7 @@ const features: Array<{
   },
   {
     title: "Research Prototypes (R&D)",
+    service: "research-prototypes",
     description:
       "Rapid MVP development and proof-of-concept testing for groundbreaking ideas.",
     image: {
@@ -64,6 +70,7 @@ const features: Array<{
   },
   {
     title: "Continuous Maintenance & Monitoring",
+    service: "maintenance-monitoring",
     description:
       "99.9% uptime SLA monitoring, live dashboards, and regular performance audits.",
     image: {
@@ -183,6 +190,7 @@ export function HighVelocity() {
             <motion.li
               key={feature.title}
               variants={rowReveal}
+              data-service={feature.service}
               className="flex flex-col gap-6 py-8 first:pt-0 md:grid md:grid-cols-[280px_1fr_auto] md:items-center md:gap-10 md:py-10"
             >
               <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-white">
@@ -190,6 +198,8 @@ export function HighVelocity() {
                   src={feature.image.src}
                   alt={feature.image.alt}
                   fill
+                  placeholder="blur"
+                  blurDataURL={sv2Blur(feature.image.src)}
                   sizes="(min-width: 768px) 280px, 100vw"
                   className="object-cover mix-blend-multiply"
                 />
