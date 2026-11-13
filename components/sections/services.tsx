@@ -1,31 +1,57 @@
-"use client"
-
-import { useState } from "react"
-import Link from "next/link"
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
 import { services } from "@/lib/constants/services"
 import { SectionHeading } from "./section-heading"
 import { cn } from "@/lib/utils"
 
 /*
- * The disciplines index — the page's flagship. A sticky left column carries
- * the pitch, a mini stats stack and a live "now viewing" readout that tracks
- * whichever row is hovered or focused; the six discipline rows sit right,
- * separated by hairlines. Row hover: a cobalt scanner sweeps the top rule,
- * the icon square flips to solid cobalt, the index swaps to an arrow, and
- * deliverable chips warm up left-to-right (see .svc-* rules in globals.css).
- * Entrance motion is the shared CSS view()-timeline reveal.
+ * S03 — Design & build: the six disciplines that assemble the engine.
+ * Rendered in the reference's "What we do" rhythm: a solid cobalt tile
+ * with a hand-drawn generative mark, a bold statement, a body paragraph
+ * and the mono deliverable chips. The capability ticker above keeps the
+ * page always moving (CSS marquee, reduced-motion safe). No JS — static
+ * markup with the shared CSS view()-timeline reveal.
  */
 
-/** Which pillar system each discipline primarily feeds. */
-const pillarFeed: Record<string, string> = {
-  "01": "SYS.03",
-  "02": "SYS.03",
-  "03": "SYS.03",
-  "04": "SYS.01 · SYS.02 · SYS.03",
-  "05": "SYS.02 · SYS.03",
-  "06": "SYS.01 · SYS.02",
+/** One-off generative marks, drawn as single-path squiggles (±12 box). */
+const marks: Record<string, React.ReactNode> = {
+  "01": (
+    <>
+      <circle cx="0" cy="0" r="8.6" />
+      <path d="M -6.5 6.5 L 7 -7.5 M -2 -9 L 3 9" opacity="0.7" />
+    </>
+  ),
+  "02": (
+    <>
+      <circle cx="0" cy="0" r="9" opacity="0.55" />
+      <path d="M -5.6 -5.6 A 8 8 0 0 1 5.6 -5.6" />
+      <circle cx="0" cy="0" r="2.6" fill="currentColor" stroke="none" />
+    </>
+  ),
+  "03": (
+    <>
+      <path d="M -10 6 C -4 -8, 2 12, 9 -4" />
+      <path d="M -10 -1 C -4 -12, 4 4, 10 -9" opacity="0.55" />
+    </>
+  ),
+  "04": (
+    <>
+      <path d="M -4.5 -8 L -9 0 L -4.5 8" />
+      <path d="M 4.5 -8 L 9 0 L 4.5 8" />
+      <path d="M 1.5 -9 L -1.5 9" opacity="0.7" />
+    </>
+  ),
+  "05": (
+    <path
+      d="M 0 -9.5 L 2.4 -2.4 L 9.5 0 L 2.4 2.4 L 0 9.5 L -2.4 2.4 L -9.5 0 L -2.4 -2.4 Z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+  "06": (
+    <>
+      <path d="M 8.5 -2 A 9 9 0 1 0 9 2" />
+      <path d="M 9 -5.5 L 8.7 -1.6 L 4.9 -2.4" />
+    </>
+  ),
 }
 
 const tickerTerms = [
@@ -61,21 +87,10 @@ const TickerGroup = ({ hidden = false }: { hidden?: boolean }) => (
   </ul>
 )
 
-const stats = [
-  { value: "06", label: "Disciplines" },
-  { value: "03", label: "Pillars" },
-  { value: "05", label: "Process stages" },
-  { value: "01", label: "Senior team" },
-]
-
 export const Services = () => {
-  const [activeN, setActiveN] = useState<string | null>(null)
-  const reduced = useReducedMotion()
-  const active = services.find((s) => s.n === activeN)
-
   return (
     <section id="disciplines" className="relative mb-24 md:mb-32">
-      {/* Discipline ticker */}
+      {/* Capability ticker */}
       <div className="section-reveal services-marquee relative mb-14 overflow-hidden border-y border-border py-5 md:mb-16">
         <div className="services-marquee-fade">
           <div className="services-marquee-track flex w-max">
@@ -89,162 +104,61 @@ export const Services = () => {
         <SectionHeading
           label="Design & build"
           title="How we deliver."
-          indexInlineFrom="xl"
         />
       </div>
 
-      <div className="mt-2 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
-        {/* Sticky pitch — pins while the rows scroll past (desktop). */}
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-32">
-            <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-              One compact team carries your project the whole way — from the
-              first moodboard to the last deploy. No handoffs between agencies,
-              no lost context.
-            </p>
+      <p className="section-reveal -mt-6 mb-12 max-w-2xl text-base leading-relaxed text-muted-foreground md:mb-16 md:text-lg">
+        One compact team carries your project the whole way — from the first
+        moodboard to the last deploy. No handoffs between agencies, no lost
+        context.
+      </p>
 
-            {/* Mini stats — the mono data voice. */}
-            <dl className="mt-10 grid max-w-md grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border">
-              {stats.map((stat) => (
-                <div key={stat.label} className="bg-card px-5 py-4">
-                  <dt className="order-2 font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                    {stat.label}
-                  </dt>
-                  <dd className="order-1 font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.01em] text-foreground">
-                    {stat.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-
-            {/* Live readout — tracks the hovered / focused row. */}
-            <div className="mt-10 flex items-center gap-3 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
-              <span
-                aria-hidden="true"
-                className="size-2 shrink-0 rounded-full bg-primary/40 transition-colors duration-200 data-[live=true]:animate-pulse data-[live=true]:bg-primary"
-                data-live={active ? "true" : "false"}
-              />
-              <span className="sr-only">Currently viewing:</span>
-              <span className="relative inline-flex h-[1.2em] min-w-0 flex-1 overflow-hidden">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={active ? `${active.n}-${active.title}` : "all"}
-                    initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reduced ? { opacity: 1 } : { opacity: 0, y: -8 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                    className={cn(
-                      "whitespace-nowrap",
-                      active ? "text-foreground" : "text-muted-foreground",
-                    )}
-                  >
-                    {active
-                      ? `${active.n} / ${active.title}`
-                      : "All disciplines"}
-                  </motion.span>
-                </AnimatePresence>
+      {/* Discipline list — tile + statement + deliverables. */}
+      <ul className="border-t border-border">
+        {services.map((service) => (
+          <li key={service.n}>
+            <article className="group grid grid-cols-[auto_1fr] gap-x-5 gap-y-4 border-b border-border px-1 py-8 transition-colors duration-300 hover:bg-secondary/40 sm:gap-x-7 md:py-10">
+              {/* Cobalt tile with the generative mark. */}
+              <span className="flex size-13 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-[inset_0_1px_0_color-mix(in_srgb,white_25%,transparent)] transition-transform duration-300 group-hover:scale-[1.06] sm:size-16">
+                <svg
+                  role="img"
+                  aria-label={`${service.title} mark`}
+                  viewBox="-13 -13 26 26"
+                  className="sv2-mark size-7 sm:size-8"
+                >
+                  {marks[service.n]}
+                </svg>
               </span>
-            </div>
 
-            <Link
-              href="/contact"
-              className="mt-10 inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3.5 text-sm font-semibold text-foreground transition-colors duration-300 hover:bg-accent hover:text-accent-foreground"
-            >
-              Discuss your project
-              <ArrowUpRight className="size-4" aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
+              <div className="min-w-0">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="text-2xl font-medium tracking-[-0.015em] font-[family-name:var(--font-display)] md:text-[1.7rem]">
+                    {service.title}
+                  </h3>
+                  <span className="shrink-0 font-mono text-xs text-muted-foreground">
+                    {service.n}
+                  </span>
+                </div>
 
-        {/* Discipline rows */}
-        <div className="lg:col-span-8">
-          <ul className="border-t border-border">
-            {services.map((service) => {
-              const Icon = service.icon
-              const isActive = activeN === service.n
-              return (
-                <li key={service.n}>
-                  <article
-                    onMouseEnter={() => setActiveN(service.n)}
-                    onMouseLeave={() => setActiveN(null)}
-                    onFocus={() => setActiveN(service.n)}
-                    onBlur={() => setActiveN(null)}
-                    className={cn(
-                      "svc-row group grid grid-cols-[auto_1fr] grid-rows-[auto_auto] gap-x-5 gap-y-4 border-b border-border px-1 py-8 transition-colors duration-300 sm:grid-cols-[auto_1fr_auto] md:py-10",
-                      isActive ? "bg-secondary/50" : "hover:bg-secondary/50",
-                    )}
-                  >
-                    {/* Icon square — flips to solid cobalt while active. */}
-                    <span
-                      className={cn(
-                        "col-start-1 row-start-1 row-span-2 flex size-11 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300 sm:size-12",
-                        isActive
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border bg-accent text-accent-foreground",
-                      )}
+                <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+                  {service.desc}
+                </p>
+
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {service.points.map((point) => (
+                    <li
+                      key={point}
+                      className="rounded-full border border-border px-3 py-1 font-mono text-[10px] tracking-[0.12em] text-muted-foreground uppercase"
                     >
-                      <Icon className="size-5" aria-hidden="true" />
-                    </span>
-
-                    {/* Title + index/arrow swap */}
-                    <div className="col-start-2 row-start-1 flex min-w-0 items-baseline justify-between gap-4 sm:col-start-2 sm:row-start-1">
-                      <h3 className="text-xl font-medium tracking-[-0.01em] font-[family-name:var(--font-display)] md:text-2xl">
-                        {service.title}
-                      </h3>
-                      <span className="relative inline-flex size-7 shrink-0 items-center justify-center self-center overflow-hidden rounded-full">
-                        <span
-                          className={cn(
-                            "absolute inset-0 flex items-center justify-center font-mono text-[11px] text-muted-foreground transition-all duration-300",
-                            isActive ? "-translate-y-3 opacity-0" : "translate-y-0 opacity-100",
-                          )}
-                        >
-                          {service.n}
-                        </span>
-                        <span
-                          className={cn(
-                            "absolute inset-0 flex items-center justify-center transition-all duration-300",
-                            isActive
-                              ? "translate-y-0 opacity-100"
-                              : "translate-y-3 opacity-0",
-                          )}
-                        >
-                          <span className="flex size-7 items-center justify-center rounded-full bg-accent text-accent-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-
-                    {/* Description + chips + pillar feed */}
-                    <div className="col-start-1 col-span-2 row-start-2 sm:col-start-2 sm:col-span-1">
-                      <p className="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-[15px]">
-                        {service.desc}
-                      </p>
-
-                      <ul className="mt-4 flex flex-wrap gap-1.5">
-                        {service.points.map((point, i) => (
-                          <li
-                            key={point}
-                            style={{ "--chip-i": i } as React.CSSProperties}
-                            className="svc-chip rounded-full border border-border px-3 py-1 font-mono text-[10px] tracking-[0.12em] text-muted-foreground uppercase"
-                          >
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <p className="mt-4 font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                        Feeds{" "}
-                        <span className="text-primary/80">{pillarFeed[service.n]}</span>
-                      </p>
-                    </div>
-                  </article>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </div>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

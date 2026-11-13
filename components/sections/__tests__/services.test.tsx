@@ -46,11 +46,11 @@ describe("Services", () => {
     expect(screen.getByText("Loading choreography")).toBeInTheDocument()
   })
 
-  it("renders the pillar feed tags and the mini stats stack", () => {
+  it("renders discipline numbering and the capability ticker", () => {
     renderWithProviders(<Services />)
 
-    expect(screen.getByText("SYS.01 · SYS.02 · SYS.03")).toBeInTheDocument()
-    expect(screen.getByText("Disciplines")).toBeInTheDocument()
-    expect(screen.getByText("Senior team")).toBeInTheDocument()
+    expect(screen.getByText("06")).toBeInTheDocument()
+    // Ticker terms render once visibly and once for the loop copy.
+    expect(screen.getAllByText("Custom AI Agents").length).toBeGreaterThan(0)
   })
 })

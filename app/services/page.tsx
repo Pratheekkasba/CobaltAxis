@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
-import { PageHeader } from "@/components/sections/page-header"
-import { ServicesEngine } from "@/components/sections/services-engine"
+import { ServicesHero } from "@/components/sections/services-hero"
+import { ServicesModules } from "@/components/sections/services-modules"
 import { Services } from "@/components/sections/services"
+import { ServicesGuardrails } from "@/components/sections/services-guardrails"
 import { ServicesProcess } from "@/components/sections/services-process"
+import { ServicesFaq } from "@/components/sections/services-faq"
 import { ServicesCta } from "@/components/sections/services-cta"
 import { CtaBand } from "@/components/sections/cta-band"
 
@@ -15,23 +17,25 @@ export const metadata: Metadata = {
 const ServicesPage = () => {
   return (
     <div className="mb-8">
-      <PageHeader
-        label="What we do"
-        title="The intelligent engine, and the team that builds it."
-        intro="Seven engineering modules plugged into one machine — the engine runs your operation, and the disciplines below build, wire and maintain it."
-        meta="07 modules · 06 disciplines"
-      />
+      {/* S01 — The promise, plus the proof strip */}
+      <ServicesHero />
 
-      {/* S01 — The intelligent engine (priority) */}
-      <ServicesEngine />
+      {/* S02 — The intelligent engine (priority): modules + Figure 1 */}
+      <ServicesModules />
 
-      {/* S02 — Design & build, the six disciplines */}
+      {/* S03 — Design & build, the six disciplines */}
       <Services />
 
-      {/* S03 — The cadence */}
+      {/* S04 — Guardrails you never have to think about */}
+      <ServicesGuardrails />
+
+      {/* S05 — The cadence: waterfall + stage rail */}
       <ServicesProcess />
 
-      {/* S04 — Mid-page conversion moment */}
+      {/* S06 — The hard questions */}
+      <ServicesFaq />
+
+      {/* S07 — Scoping-call band */}
       <ServicesCta />
 
       <CtaBand
