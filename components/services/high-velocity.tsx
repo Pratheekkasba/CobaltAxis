@@ -12,14 +12,14 @@ import {
 import { Container } from "./container"
 
 /*
- * S03 — High Velocity, the dark contrast band.
+ * S03 — High Velocity, the speed-numbers band.
  *
- * Four feature rows on the obsidian canvas: white art plates, white
- * titles, and a neon-cyan speed indicator badge per row. Numeric badges
- * count up from zero when scrolled into view (framer `animate` on the
- * text node); the MVP badge pops instead — it isn't a number. Everything
- * is transform/opacity/text-only and reduced-motion renders final values
- * statically.
+ * Four feature rows on a soft neutral band (in-theme, no dark mode
+ * deviation): white art plates, navy ink titles, and a cobalt
+ * speed-indicator badge per row. Numeric badges count up from zero when
+ * scrolled into view (framer `animate` on the text node); the MVP badge
+ * pops instead — it isn't a number. Everything is transform/opacity/
+ * text-only and reduced-motion renders final values statically.
  */
 
 type Badge =
@@ -126,11 +126,11 @@ function SpeedBadge({ badge }: { badge: Badge }) {
   return (
     <motion.div
       variants={badgePop}
-      className="inline-flex min-w-[7.5rem] flex-col items-center rounded-xl border border-neon/30 bg-neon/5 px-5 py-4"
+      className="inline-flex min-w-[7.5rem] flex-col items-center rounded-xl border border-cobalt/25 bg-white px-5 py-4"
     >
       <span
         aria-hidden="true"
-        className="font-mono text-3xl font-semibold tracking-tight text-neon tabular-nums [text-shadow:0_0_18px_rgba(0,240,255,0.45)]"
+        className="font-mono text-3xl font-semibold tracking-tight text-cobalt tabular-nums"
       >
         {badge.kind === "count" ? (
           <CountUp to={badge.to} decimals={badge.decimals} />
@@ -141,7 +141,7 @@ function SpeedBadge({ badge }: { badge: Badge }) {
       {badge.kind === "count" && (
         <span
           aria-hidden="true"
-          className="mt-1 font-mono text-[10px] tracking-[0.22em] text-neon/70 uppercase"
+          className="mt-1 font-mono text-[10px] tracking-[0.22em] text-cobalt/60 uppercase"
         >
           {badge.unit}
         </span>
@@ -157,17 +157,17 @@ export function HighVelocity() {
   return (
     <section
       id="high-velocity"
-      className="scroll-mt-24 border-y border-white/10 bg-obsidian py-20 md:py-28"
+      className="scroll-mt-24 border-y border-border bg-secondary/50 py-20 md:py-28"
     >
       <Container>
         <header className="mb-12 max-w-3xl md:mb-16">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-neon uppercase">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-cobalt uppercase">
             High velocity
           </p>
-          <h2 className="mt-4 text-4xl leading-[1.08] font-medium tracking-[-0.02em] font-[family-name:var(--font-display)] text-white md:text-5xl">
+          <h2 className="mt-4 text-4xl leading-[1.08] font-medium tracking-[-0.02em] font-[family-name:var(--font-display)] text-foreground md:text-5xl">
             Fast is a feature.
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/60 md:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
             The numbers we hold ourselves to — in frames, hours and uptime.
           </p>
         </header>
@@ -177,7 +177,7 @@ export function HighVelocity() {
           initial={reduced ? false : "hidden"}
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="divide-y divide-white/10"
+          className="divide-y divide-border"
         >
           {features.map((feature) => (
             <motion.li
@@ -185,7 +185,7 @@ export function HighVelocity() {
               variants={rowReveal}
               className="flex flex-col gap-6 py-8 first:pt-0 md:grid md:grid-cols-[280px_1fr_auto] md:items-center md:gap-10 md:py-10"
             >
-              <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/15 bg-white">
+              <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-white">
                 <Image
                   src={feature.image.src}
                   alt={feature.image.alt}
@@ -196,10 +196,10 @@ export function HighVelocity() {
               </div>
 
               <div>
-                <h3 className="text-xl font-medium tracking-[-0.01em] text-white md:text-2xl">
+                <h3 className="text-xl font-medium tracking-[-0.01em] text-foreground md:text-2xl">
                   {feature.title}
                 </h3>
-                <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-white/60 md:text-[15px]">
+                <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-[15px]">
                   {feature.description}
                 </p>
               </div>

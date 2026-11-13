@@ -30,7 +30,7 @@ const ServicesPage = () => {
       {/* S02 — Design & build, the secondary pillar */}
       <DesignBuild />
 
-      {/* S03 — High velocity: the dark contrast band */}
+      {/* S03 — High velocity: the speed-numbers band */}
       <HighVelocity />
 
       {/* S04 — The promise, plus the proof strip */}

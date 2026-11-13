@@ -24,7 +24,8 @@ if (typeof globalThis.IntersectionObserver === "undefined") {
   ).IntersectionObserver = IntersectionObserverStub
 }
 
-// The dark obsidian band: four feature rows with speed-indicator badges.
+// The speed-numbers band: four feature rows with count-up speed badges
+// on a soft in-theme neutral band.
 describe("HighVelocity", () => {
   it("renders the section header", () => {
     renderWithProviders(<HighVelocity />)
