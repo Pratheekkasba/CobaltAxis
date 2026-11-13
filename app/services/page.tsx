@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Hero } from "@/components/services/hero"
 import { IntelligentEngineering } from "@/components/services/intelligent-engineering"
 import { DesignBuild } from "@/components/services/design-build"
+import { HighVelocity } from "@/components/services/high-velocity"
 import { ServicesHero } from "@/components/sections/services-hero"
 import { ServicesModules } from "@/components/sections/services-modules"
 import { Services } from "@/components/sections/services"
@@ -29,25 +30,28 @@ const ServicesPage = () => {
       {/* S02 — Design & build, the secondary pillar */}
       <DesignBuild />
 
-      {/* S03 — The promise, plus the proof strip */}
+      {/* S03 — High velocity: the dark contrast band */}
+      <HighVelocity />
+
+      {/* S04 — The promise, plus the proof strip */}
       <ServicesHero />
 
-      {/* S04 — The intelligent engine deep dive: modules + Figure 1 */}
+      {/* S05 — The intelligent engine deep dive: modules + Figure 1 */}
       <ServicesModules />
 
-      {/* S05 — Design & build, the six disciplines */}
+      {/* S06 — Design & build, the six disciplines */}
       <Services />
 
-      {/* S06 — Guardrails you never have to think about */}
+      {/* S07 — Guardrails you never have to think about */}
       <ServicesGuardrails />
 
-      {/* S07 — The cadence: waterfall + stage rail */}
+      {/* S08 — The cadence: waterfall + stage rail */}
       <ServicesProcess />
 
-      {/* S08 — The hard questions */}
+      {/* S09 — The hard questions */}
       <ServicesFaq />
 
-      {/* S09 — Scoping-call band */}
+      {/* S10 — Scoping-call band */}
       <ServicesCta />
 
       <CtaBand
