@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { FeatureChip } from "./feature-chip"
 
 /**
  * Service card — the workhorse of the upcoming section prompts.
@@ -8,8 +9,8 @@ import { cn } from "@/lib/utils"
  * uses mix-blend-multiply on a fixed white panel so the illustration's
  * white background fuses with the card in light theme and reads as a clean
  * light plate in dark theme (same pattern as the homepage capability
- * cards). Hover: lift 4px, border turns cobalt, soft neon-cyan glow —
- * 200ms ease-out, transform/box-shadow only, disabled for
+ * cards). Hover: lift 4px, border turns cobalt, image scales 1.03, soft
+ * neon-cyan glow — 200ms ease-out, transform/box-shadow only, disabled for
  * prefers-reduced-motion users.
  */
 export function ServiceCard({
@@ -19,6 +20,7 @@ export function ServiceCard({
   image,
   icon,
   href,
+  chips,
   className,
 }: {
   /** Mono index label, e.g. "02". */
@@ -28,6 +30,8 @@ export function ServiceCard({
   image?: { src: string; alt: string }
   icon?: React.ReactNode
   href?: string
+  /** Capability chips rendered under the description. */
+  chips?: string[]
   className?: string
 }) {
   return (
@@ -43,8 +47,8 @@ export function ServiceCard({
             src={image.src}
             alt={image.alt}
             fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover mix-blend-multiply"
+            sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         </div>
       )}
@@ -69,6 +73,14 @@ export function ServiceCard({
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
+
+        {chips && chips.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {chips.map((chip) => (
+              <FeatureChip key={chip}>{chip}</FeatureChip>
+            ))}
+          </div>
+        )}
 
         {href && (
           <span

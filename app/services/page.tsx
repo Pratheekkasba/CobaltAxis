@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Hero } from "@/components/services/hero"
+import { IntelligentEngineering } from "@/components/services/intelligent-engineering"
 import { ServicesHero } from "@/components/sections/services-hero"
 import { ServicesModules } from "@/components/sections/services-modules"
 import { Services } from "@/components/sections/services"
@@ -21,25 +22,28 @@ const ServicesPage = () => {
       {/* S00 — The engineered-intelligence hero */}
       <Hero />
 
-      {/* S01 — The promise, plus the proof strip */}
+      {/* S01 — Intelligent engineering: the four system cards */}
+      <IntelligentEngineering />
+
+      {/* S02 — The promise, plus the proof strip */}
       <ServicesHero />
 
-      {/* S02 — The intelligent engine (priority): modules + Figure 1 */}
+      {/* S03 — The intelligent engine deep dive: modules + Figure 1 */}
       <ServicesModules />
 
-      {/* S03 — Design & build, the six disciplines */}
+      {/* S04 — Design & build, the six disciplines */}
       <Services />
 
-      {/* S04 — Guardrails you never have to think about */}
+      {/* S05 — Guardrails you never have to think about */}
       <ServicesGuardrails />
 
-      {/* S05 — The cadence: waterfall + stage rail */}
+      {/* S06 — The cadence: waterfall + stage rail */}
       <ServicesProcess />
 
-      {/* S06 — The hard questions */}
+      {/* S07 — The hard questions */}
       <ServicesFaq />
 
-      {/* S07 — Scoping-call band */}
+      {/* S08 — Scoping-call band */}
       <ServicesCta />
 
       <CtaBand
