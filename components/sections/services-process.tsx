@@ -40,7 +40,7 @@ export const ServicesProcess = () => {
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 26 })
 
   return (
-    <section id="process" className="relative mb-24 md:mb-32">
+    <section id="cadence" className="relative mb-24 md:mb-32">
       <div className="section-reveal">
         <SectionHeading
           label="The way we work"

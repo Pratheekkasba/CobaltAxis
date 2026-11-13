@@ -36,6 +36,9 @@ type ButtonProps = VariantProps<typeof buttonVariants> & {
   href?: string
   type?: "button" | "submit"
   onClick?: () => void
+  /** Pass-through for external links (e.g. booking URLs). */
+  target?: string
+  rel?: string
   className?: string
   children: React.ReactNode
   "aria-label"?: string

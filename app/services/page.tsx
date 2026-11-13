@@ -3,6 +3,8 @@ import { Hero } from "@/components/services/hero"
 import { IntelligentEngineering } from "@/components/services/intelligent-engineering"
 import { DesignBuild } from "@/components/services/design-build"
 import { HighVelocity } from "@/components/services/high-velocity"
+import { Process } from "@/components/services/process"
+import { FinalCTA } from "@/components/services/final-cta"
 import { ServicesHero } from "@/components/sections/services-hero"
 import { ServicesModules } from "@/components/sections/services-modules"
 import { Services } from "@/components/sections/services"
@@ -33,25 +35,31 @@ const ServicesPage = () => {
       {/* S03 — High velocity: the speed-numbers band */}
       <HighVelocity />
 
-      {/* S04 — The promise, plus the proof strip */}
+      {/* S04 — Process: campus banner + scroll-driven stage timeline */}
+      <Process />
+
+      {/* S05 — Final CTA: start a project / book a call */}
+      <FinalCTA />
+
+      {/* S06 — The promise, plus the proof strip */}
       <ServicesHero />
 
-      {/* S05 — The intelligent engine deep dive: modules + Figure 1 */}
+      {/* S07 — The intelligent engine deep dive: modules + Figure 1 */}
       <ServicesModules />
 
-      {/* S06 — Design & build, the six disciplines */}
+      {/* S08 — Design & build, the six disciplines */}
       <Services />
 
-      {/* S07 — Guardrails you never have to think about */}
+      {/* S09 — Guardrails you never have to think about */}
       <ServicesGuardrails />
 
-      {/* S08 — The cadence: waterfall + stage rail */}
+      {/* S10 — The cadence: waterfall + stage rail */}
       <ServicesProcess />
 
-      {/* S09 — The hard questions */}
+      {/* S11 — The hard questions */}
       <ServicesFaq />
 
-      {/* S10 — Scoping-call band */}
+      {/* S12 — Scoping-call band */}
       <ServicesCta />
 
       <CtaBand
